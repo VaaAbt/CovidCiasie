@@ -4,4 +4,4 @@
 
 use Slim\App;
 
-require ('eloquent.php')($app);
+(require('eloquent.php'))($app);
