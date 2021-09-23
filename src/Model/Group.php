@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
@@ -40,4 +41,22 @@ class Group extends Model
     {
         return $this->hasMany(Message::class, 'group_id', 'id');
     }
+
+    /**
+     * Get the related users of the groups
+     *
+     * @return BelongsToMany
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            User::class,
+            'groups_users',
+            'group_id',
+            'user_id',
+            'id',
+            'id'
+        );
+    }
+
 }
