@@ -1,5 +1,6 @@
 <?php
 
+use DI\Container;
 use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
@@ -12,5 +13,7 @@ return static function (App $app) {
     $app->add(TwigMiddleware::create($app, $twig));
 
     // Add twig to container
-    $app->getContainer()->set('views', $twig);
+    /** @var Container $container */
+    $container = $app->getContainer();
+    $container->set('twig', $twig);
 };
