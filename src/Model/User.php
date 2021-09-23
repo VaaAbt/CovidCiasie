@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Model
 {
@@ -64,4 +65,21 @@ class User extends Model
      * @var string
      */
     public $password;
+
+    /**
+     * Get the related groups of the user
+     *
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Group::class,
+            'groups_users',
+            'user_id',
+            'group_id',
+            'id',
+            'id'
+        );
+    }
 }
