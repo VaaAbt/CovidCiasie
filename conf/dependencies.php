@@ -5,4 +5,3 @@
 $container = $app->getContainer();
 
 $container->set('settings', require('settings.php'));
-
