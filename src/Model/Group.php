@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Group extends Model
 {
@@ -29,4 +30,14 @@ class Group extends Model
      * @var string
      */
     public $name;
+
+    /**
+     * Get messages related to the group
+     *
+     * @return HasMany
+     */
+    public function messages(): HasMany
+    {
+        return $this->hasMany(Message::class, 'group_id', 'id');
+    }
 }
