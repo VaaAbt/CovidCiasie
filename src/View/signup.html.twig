@@ -1,0 +1,27 @@
+{% extends 'template/base.html.twig' %}
+{% block content %}
+    <div class="container-sm">
+        <h1>Signup</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="lastname">LASTNAME:</label>
+                <input class="form-control" type="text" name="lastname" id="lastname" placeholder="LASTNAME" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Firstname:</label>
+                <input class="form-control" type="text" name="firstname" id="firstname" placeholder="Firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" placeholder="example@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+            </div>
+            <input class="btn btn-primary" type="submit" value="Signup">
+        </form>
+        <br>
+        <button class="btn btn-primary" onclick="window.location.href = 'login'">Already have an account? Connect!</button>
+    </div>
+{% endblock %}
