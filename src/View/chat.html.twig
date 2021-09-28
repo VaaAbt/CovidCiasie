@@ -1,17 +1,21 @@
-{% extends 'Template/base.html.twig' %}
+{% extends 'template/base.html.twig' %}
 {% block content %}
-<main class="chat-message-container">
-    <section>
-    </section>
-    <aside>
-        <div>Chat-1</div>
-    </aside>
-</main>
+    <main class="chat-message-container">
+        <section>
+        </section>
+        <aside>
+            <div>Chat-1</div>
+        </aside>
+    </main>
 
-<section class="chat-form-container">
-    <form action="" method="post">
-        <input type="text" name="message">
-        <button type="submit">Send message</button>
-    </form>
-</aside>
+    <section class="container">
+        <h1>Messagerie</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="message">Message</label>
+                <input id="message" type="text" name="message" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+        </form>
+    </section>
 {% endblock %}
