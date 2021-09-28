@@ -4,8 +4,6 @@ CREATE TABLE IF NOT EXISTS users
     id int(11) NOT NULL AUTO_INCREMENT,
     lastname varchar(255) NOT NULL,
     firstname varchar(255) NOT NULL,
-    age int(4),
-    phone varchar(14),
     location varchar(255),
     contamined tinyint(1) NOT NULL DEFAULT '0',
     email varchar(255) NOT NULL,
