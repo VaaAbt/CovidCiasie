@@ -1,0 +1,11 @@
+.chat-message-container{
+    display: flex;
+    width: 500px;
+    height: 500px;
+    border: 1px solid #000;
+}
+
+.chat-message-container aside {
+    width: 100px;
+    background-color: #eff;
+}
