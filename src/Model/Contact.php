@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-
     /**
      * Set the corresponding table name
      *
@@ -20,15 +19,4 @@ class Contact extends Model
      * @var bool
      */
     public $timestamps = false;
-
-    /**
-     * @var int
-     */
-    public $user1_id;
-
-    /**
-     * @var int
-     */
-    public $user2_id;
-
 }

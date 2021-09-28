@@ -23,16 +23,6 @@ class Group extends Model
     public $timestamps = false;
 
     /**
-     * @var int
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
      * Get messages related to the group
      *
      * @return HasMany

@@ -14,27 +14,9 @@ class Message extends Model
     protected $table = 'messages';
 
     /**
-     * @var int
+     * Disable default timestamps columns
+     *
+     * @var bool
      */
-    public $id;
-
-    /**
-     * @var int
-     */
-    public $sender_id;
-
-    /**
-     * @var int
-     */
-    public $receiver_id;
-
-    /**
-     * @var int
-     */
-    public $group_id;
-
-    /**
-     * @var string
-     */
-    public $message;
+    public $timestamps = false;
 }   

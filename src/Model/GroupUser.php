@@ -22,16 +22,6 @@ class GroupUser extends Model
     public $timestamps = false;
 
     /**
-     * @var int
-     */
-    public $group_id;
-
-    /**
-     * @var int
-     */
-    public $user_id;
-
-    /**
      * Get related group
      *
      * @return BelongsTo

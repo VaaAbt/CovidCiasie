@@ -22,51 +22,6 @@ class User extends Model
     public $timestamps = false;
 
     /**
-     * @var int
-     */
-    public $id;
-
-    /**
-     * @var string
-     */
-    public $firstname;
-
-    /**
-     * @var string
-     */
-    public $lastname;
-
-    /**
-     * @var int
-     */
-    public $age;
-
-    /**
-     * @var string
-     */
-    public $phone;
-
-    /**
-     * @var string
-     */
-    public $location;
-
-    /**
-     * @var bool
-     */
-    public $contamined;
-
-    /**
-     * @var string
-     */
-    public $email;
-
-    /**
-     * @var string
-     */
-    public $password;
-
-    /**
      * Get the related groups of the user
      *
      * @return BelongsToMany
