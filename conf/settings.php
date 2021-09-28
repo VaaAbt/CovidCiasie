@@ -3,7 +3,7 @@
 return [
     'db' => [
         'driver' => 'mysql',
-        'host' => 'localhost',
+        'host' => '127.0.0.1',
         'database' => 'covidciasie',
         'username' => 'root',
         'password' => '',
