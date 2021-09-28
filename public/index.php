@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 use DI\Container;
 use Slim\Factory\AppFactory;
