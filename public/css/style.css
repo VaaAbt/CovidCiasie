@@ -1,0 +1,15 @@
+/* 
+    COVID CIASIE 
+    CSS
+ */
+
+ /* dividers */
+ .divider-b {
+    display: block;
+    margin: 5rem 0;
+ }
+
+ .divider-s {
+    display: block;
+    margin: 2.5rem 0;
+}
