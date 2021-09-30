@@ -1,0 +1,27 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ".:/var/www"
+      - "./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf"
+    links:
+      - php
+  php:
+    build: "./docker/php"
+    volumes:
+      - ".:/var/www"
+    links:
+      - mariadb
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - "3306:3306" # Exposing port in dev for debugging
+    environment:
+      MARIADB_ROOT_PASSWORD: "root"
+      MARIADB_DATABASE: "covidciasie"
+    volumes:
+      - "./var/database:/var/lib/mysql"
+

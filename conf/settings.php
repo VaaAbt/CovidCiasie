@@ -3,10 +3,10 @@
 return [
     'db' => [
         'driver' => 'mysql',
-        'host' => '127.0.0.1',
+        'host' => 'mariadb',
         'database' => 'covidciasie',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'collation' => 'utf8_general_ci',
         'charset' => 'utf8',
         'prefix' => ''
