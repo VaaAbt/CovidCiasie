@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       - ".:/var/code"
-      - "./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf"
+      - "./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf"
     links:
       - php
   php:
