@@ -3,6 +3,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\HomeController;
+use App\Controller\MapController;
 use App\Controller\MessageController;
 use App\Controller\SignupController;
 use Slim\App;

@@ -55,4 +55,11 @@ class User extends Model
             'id'
         );
     }
+
+    public static function getAllLocations()
+    {
+        $locations = User::with('id', 'contamined', 'location')->get();
+
+        return $locations;
+    }
 }
