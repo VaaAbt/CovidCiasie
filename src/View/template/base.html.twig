@@ -20,19 +20,16 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         {% if current.check == 0 %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Log in</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/signup">Sign up</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/signup">Sign up</a>
+                            </li>
                         {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link">Bonjour {{ user.getUser.firstname }} 👋</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Log out</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout">Log out</a>
+                            </li>
                         {% endif %}
                     </ul>
                 </div>

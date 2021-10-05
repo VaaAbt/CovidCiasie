@@ -2,7 +2,7 @@
 {% block content %}
     <div class="container-sm">
         <div class="divider-b"></div>
-        <h1>Log In</h1>
+        <h1>Log in</h1>
         <form action="" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
@@ -14,9 +14,10 @@
                 <input type="password" class="form-control" name="password" id="password" required>
             </div>
             <div class="divider-s"></div>
-            <input class="btn btn-primary" type="submit" value="Connection">
+            <input class="btn btn-primary" type="submit" value="Log in">
         </form>
         <br>
-        <button type="submit" class="btn btn-secondary">No account? Signup!</button>
+        <button type="submit" class="btn btn-secondary" onclick="window.location.href = '/signup'">No account? Signup!
+        </button>
     </div>
 {% endblock %}

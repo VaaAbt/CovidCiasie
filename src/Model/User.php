@@ -24,10 +24,11 @@ class User extends Model
     /**
      * Create new user
      *
+     * @param array $data
      * @return User
      */
-    public static function create($data){
-
+    public static function create(array $data): User
+    {
         $user = new User();
 
         $user->setAttribute('firstname', $data['firstname']);
