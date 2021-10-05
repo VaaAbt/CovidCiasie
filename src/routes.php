@@ -3,6 +3,7 @@
 
 use App\Controller\AuthController;
 use App\Controller\HomeController;
+use App\Controller\MapController;
 use App\Controller\MessageController;
 use App\Controller\SignupController;
 use Slim\App;
@@ -23,3 +24,6 @@ $app->get('/login', [AuthController::class, 'loginView']);
 
 // signup
 $app->get('/signup', [SignupController::class, 'signupView']);
+
+//map
+$app->get('/map', [MapController::class, 'mapView']);
