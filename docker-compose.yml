@@ -23,5 +23,6 @@ services:
       MARIADB_ROOT_PASSWORD: "root"
       MARIADB_DATABASE: "covidciasie"
     volumes:
+      - "./CREATE_TABLES.sql:/docker-entrypoint-initdb.d/CREATE_TABLES.sql"
       - "./var/database:/var/lib/mysql"
 
