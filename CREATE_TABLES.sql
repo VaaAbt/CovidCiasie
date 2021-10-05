@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS users;
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS covidciasie.users
 (
     id int(11) NOT NULL AUTO_INCREMENT,
     lastname varchar(255) NOT NULL,
@@ -11,16 +10,14 @@ CREATE TABLE IF NOT EXISTS users
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS `groups`;
-CREATE TABLE IF NOT EXISTS `groups`
+CREATE TABLE IF NOT EXISTS covidciasie.`groups`
 (
     id int(11) NOT NULL AUTO_INCREMENT,
     name varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS messages;
-CREATE TABLE IF NOT EXISTS messages
+CREATE TABLE IF NOT EXISTS covidciasie.messages
 (
     id int(11) NOT NULL AUTO_INCREMENT,
     sender_id int(11) NOT NULL,
@@ -37,8 +34,7 @@ CREATE TABLE IF NOT EXISTS messages
 );
 
 
-DROP TABLE IF EXISTS groups_users;
-CREATE TABLE IF NOT EXISTS groups_users
+CREATE TABLE IF NOT EXISTS covidciasie.groups_users
 (
     group_id int(11) NOT NULL,
     user_id int(11) NOT NULL,
@@ -50,8 +46,7 @@ CREATE TABLE IF NOT EXISTS groups_users
 );
 
 
-DROP TABLE IF EXISTS contacts;
-CREATE TABLE IF NOT EXISTS contacts
+CREATE TABLE IF NOT EXISTS covidciasie.contacts
 (
     user1_id int(11) NOT NULL,
     user2_id int(11) NOT NULL,
