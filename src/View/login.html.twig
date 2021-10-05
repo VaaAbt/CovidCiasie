@@ -2,21 +2,21 @@
 {% block content %}
     <div class="container-sm">
         <div class="divider-b"></div>
-        <h1>Connection</h1>
-        <form method="post">
+        <h1>Log In</h1>
+        <form action="" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" name="password" id="password" required>
             </div>
             <div class="divider-s"></div>
             <input class="btn btn-primary" type="submit" value="Connection">
         </form>
         <br>
-        <button class="btn btn-secondary" onclick="window.location.href = 'signup'">No account? Signup!</button>
+        <button type="submit" class="btn btn-secondary">No account? Signup!</button>
     </div>
 {% endblock %}

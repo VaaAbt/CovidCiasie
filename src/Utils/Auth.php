@@ -68,7 +68,7 @@ class Auth
 
         return self::$_user;
     }
-
+    
     /**
      * Log out the current user
      */

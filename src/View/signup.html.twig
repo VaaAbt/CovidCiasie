@@ -6,24 +6,24 @@
         <form method="post">
             <div class="mb-3">
                 <label for="firstname" class="form-label">Firstname</label>
-                <input type="text" class="form-control" id="firstname" placeholder="John" require>
+                <input type="text" class="form-control" id="firstname" placeholder="John" name="firstname" required>
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Lastname</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Doe" require>
+                <input type="text" class="form-control" id="lastname" placeholder="Doe" name="lastname" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">E-mail</label>
-                <input type="text" class="form-control" id="email" placeholder="Johndoe@gmail.com" require>
+                <input type="text" class="form-control" id="email" placeholder="Johndoe@gmail.com" name="email" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" aria-describedby="passwordHelp">
+                <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" name="password" required>
                 <div id="passwordHelp" class="form-text">Use letters, numbers and special caracters.</div>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Confirm your password</label>
-                <input type="password" class="form-control" id="password">
+                <label for="password-c" class="form-label">Confirm your password</label>
+                <input type="password" class="form-control" id="password-c" name="password-c" required>
             </div>
             <div class="divider-s"></div>
             <input class="btn btn-primary" type="submit" value="Signup">

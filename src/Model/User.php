@@ -22,6 +22,24 @@ class User extends Model
     public $timestamps = false;
 
     /**
+     * Create new user
+     *
+     * @return User
+     */
+    public static function create($data){
+
+        $user = new User();
+
+        $user->setAttribute('firstname', $data['firstname']);
+        $user->setAttribute('lastname', $data['lastname']);
+        $user->setAttribute('email', $data['email']);
+        $user->setAttribute('password', password_hash($data['password'], PASSWORD_DEFAULT));
+        $user->save();
+
+        return $user;
+    }
+
+    /**
      * Get the related groups of the user
      *
      * @return BelongsToMany

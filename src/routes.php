@@ -20,6 +20,8 @@ $app->post('/chat/{user_id}', [MessageController::class, 'createMessage']);
 
 // login
 $app->get('/login', [AuthController::class, 'loginView']);
+$app->post('/login', [AuthController::class, 'connectUser']);
 
 // signup
 $app->get('/signup', [SignupController::class, 'signupView']);
+$app->post('/signup', [SignupController::class, 'signupUser']);
