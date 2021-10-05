@@ -26,3 +26,6 @@ $app->post('/login', [AuthController::class, 'connectUser']);
 // signup
 $app->get('/signup', [SignupController::class, 'signupView']);
 $app->post('/signup', [SignupController::class, 'signupUser']);
+
+// signup
+$app->delete('/logout', [AuthController::class, 'logout']);

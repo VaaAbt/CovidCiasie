@@ -20,4 +20,10 @@ class AuthController extends AbstractController
             return $this->render($response, 'dashboard.html.twig');
         return $this->render($response, 'login.html.twig');
     }
+
+    public function logout(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        Auth::logout();
+        return $response->withHeader('Location', '/login')->withStatus(302);
+    }
 }
