@@ -5,16 +5,22 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ".:/var/www"
+      - ".:/var/code"
       - "./docker/nginx/site.conf:/etc/nginx/conf.d/site.conf"
     links:
       - php
   php:
     build: "./docker/php"
     volumes:
-      - ".:/var/www"
+      - ".:/var/code"
     links:
       - mariadb
+  composer:
+    image: composer
+    command: "install"
+    working_dir: "/var/code"
+    volumes:
+      - ".:/var/code"
   mariadb:
     image: mariadb:latest
     ports:
