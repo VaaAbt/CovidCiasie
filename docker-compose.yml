@@ -31,4 +31,12 @@ services:
     volumes:
       - "./CREATE_TABLES.sql:/docker-entrypoint-initdb.d/CREATE_TABLES.sql"
       - "./var/database:/var/lib/mysql"
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "3000:80"
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
 
