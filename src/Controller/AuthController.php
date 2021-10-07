@@ -4,9 +4,9 @@ namespace App\Controller;
 
 use App\Model\User;
 use App\Utils\Auth;
+use App\Utils\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Respect\Validation\Validator as v;
 
 class AuthController extends AbstractController
 {
@@ -33,19 +33,11 @@ class AuthController extends AbstractController
 
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $data = [
-            'firstname' => $request->getParsedBody()['firstname'],
-            'lastname' => $request->getParsedBody()['lastname'],
-            'email' => $request->getParsedBody()['email'],
-            'password' => $request->getParsedBody()['password'],
-            'password-confirmation' => $request->getParsedBody()['password-confirmation'],
-        ];
-
         $dataValidator = [
-            'firstname' => v::notEmpty()->stringType()->validate($data['firstname']),
-            'lastname' => v::notEmpty()->stringType()->validate($data['lastname']),
-            'email' => v::notEmpty()->email()->validate($data['email']),
-            'password' => v::identical($data['password'])->validate($data['password-confirmation'])
+            'firstname' => Validator::isEmpty($request->getParsedBody()['firstname']),
+            'lastname' => Validator::isEmpty($request->getParsedBody()['lastname']),
+            'email' => Validator::isEmail($request->getParsedBody()['email']),
+            'password' => Validator::isEqual($request->getParsedBody()['password'], $request->getParsedBody()['password-confirmation'])
         ];
 
         $result = (bool)array_product($dataValidator);
