@@ -5,7 +5,9 @@ use App\Controller\AccountController;
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\MessageController;
+use App\Middleware\AuthMiddleware;
 use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
 
 /**
  * ----------------
@@ -15,19 +17,27 @@ use Slim\App;
 $app->get('/', [HomeController::class, 'index']);
 
 // chat building
-$app->get('/chat/{user_id}', [MessageController::class, 'getChat']);
-$app->post('/chat/{user_id}', [MessageController::class, 'createMessage']);
+$app->group('/chat', function (RouteCollectorProxy $group) {
+    $group->get('/{user_id}', [MessageController::class, 'getChat']);
+    $group->post('/{user_id}', [MessageController::class, 'createMessage']);
+})->add(new AuthMiddleware());
 
 // login
-$app->get('/login', [AuthController::class, 'loginView']);
-$app->post('/login', [AuthController::class, 'login']);
+$app->group('/login', function (RouteCollectorProxy $group) {
+    $group->get('', [AuthController::class, 'loginView']);
+    $group->post('', [AuthController::class, 'login']);
+});
 
 // signup
-$app->get('/signup', [AuthController::class, 'signupView']);
-$app->post('/signup', [AuthController::class, 'signup']);
+$app->group('/signup', function (RouteCollectorProxy $group) {
+    $group->get('', [AuthController::class, 'signupView']);
+    $group->post('', [AuthController::class, 'signup']);
+});
 
 // logout
 $app->get('/logout', [AuthController::class, 'logout']);
 
 // account
-$app->get('/account', [AccountController::class, 'accountView']);
+$app->group('/account', function (RouteCollectorProxy $group) {
+    $group->get('', [AccountController::class, 'accountView']);
+})->add(new AuthMiddleware());
