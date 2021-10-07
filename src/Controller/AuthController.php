@@ -31,7 +31,7 @@ class AuthController extends AbstractController
         return $this->render($response, 'signup.html.twig');
     }
 
-    public function signupUSer(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $data = [
             'firstname' => $request->getParsedBody()['firstname'],
