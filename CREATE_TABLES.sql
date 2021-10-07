@@ -1,15 +1,28 @@
+DROP TABLE IF EXISTS covidciasie.users;
 CREATE TABLE IF NOT EXISTS covidciasie.users
 (
     id int(11) NOT NULL AUTO_INCREMENT,
     lastname varchar(255) NOT NULL,
     firstname varchar(255) NOT NULL,
-    location varchar(255),
     contamined tinyint(1) NOT NULL DEFAULT '0',
     email varchar(255) NOT NULL,
     password varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS covidciasie.location;
+CREATE TABLE IF NOT EXISTS covidciasie.location
+(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    latitude float(9, 7) NOT NULL,
+    longitude float(9, 7) NOT NULL,
+    user_id int(11) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_location_id_user
+        FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+DROP TABLE IF EXISTS covidciasie.`groups`;
 CREATE TABLE IF NOT EXISTS covidciasie.`groups`
 (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -17,6 +30,7 @@ CREATE TABLE IF NOT EXISTS covidciasie.`groups`
     PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS covidciasie.messages;
 CREATE TABLE IF NOT EXISTS covidciasie.messages
 (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -33,7 +47,7 @@ CREATE TABLE IF NOT EXISTS covidciasie.messages
         FOREIGN KEY (group_id) REFERENCES `groups` (id)
 );
 
-
+DROP TABLE IF EXISTS covidciasie.groups_users;
 CREATE TABLE IF NOT EXISTS covidciasie.groups_users
 (
     group_id int(11) NOT NULL,
@@ -45,7 +59,7 @@ CREATE TABLE IF NOT EXISTS covidciasie.groups_users
         FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-
+DROP TABLE IF EXISTS covidciasie.contacts;
 CREATE TABLE IF NOT EXISTS covidciasie.contacts
 (
     user1_id int(11) NOT NULL,
