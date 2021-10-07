@@ -19,7 +19,16 @@ class AccountController extends AbstractController
         $payload = $request->getParsedBody();
         $user = Auth::getUser();
 
-        // TODO: Basic validation with the validator
+        $dataValidator = [
+            'firstname' => Validator::isNotEmpty($request->getParsedBody()['firstname']),
+            'lastname' => Validator::isNotEmpty($request->getParsedBody()['lastname']),
+            'email' => Validator::isNotEmpty($request->getParsedBody()['email'])
+        ];
+
+        $result = (bool)array_product($dataValidator);
+
+        if (!$result)
+            return $response->withHeader('Location', '/account');
 
         $user->setAttribute('firstname', $payload['firstname']);
         $user->setAttribute('lastname', $payload['lastname']);
