@@ -17,7 +17,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav w-100">
                         {% if not auth.isLoggedIn %}
                             <li class="nav-item">
                                 <a class="nav-link" href="/login">Log in</a>
@@ -32,7 +32,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/chat">Messages</a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item ms-lg-auto">
                                 <a class="nav-link" href="/logout">Log out</a>
                             </li>
                         {% endif %}
