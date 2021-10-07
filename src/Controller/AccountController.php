@@ -23,7 +23,6 @@ class AccountController extends AbstractController
         $user->setAttribute('firstname', $payload['firstname']);
         $user->setAttribute('lastname', $payload['lastname']);
         $user->setAttribute('email', $payload['email']);
-        $user->setAttribute('location', $payload['location']);
         $user->setAttribute('contamined', filter_var($payload['contamined'], FILTER_VALIDATE_BOOL));
         $user->save();
 
