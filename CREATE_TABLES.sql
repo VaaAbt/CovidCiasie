@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS covidciasie.users
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS covidciasie.location
+CREATE TABLE IF NOT EXISTS covidciasie.locations
 (
     id int(11) NOT NULL AUTO_INCREMENT,
     latitude float(9, 7) NOT NULL,
