@@ -1,10 +1,10 @@
 <?php
 
+use App\Utils\Auth;
 use DI\Container;
 use Slim\App;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
-use App\Utils\Auth;
 
 return static function (App $app) {
     // Create Twig
@@ -15,8 +15,8 @@ return static function (App $app) {
 
     // Add Twig session variable
     $environment = $twig->getEnvironment();
-    $environment->addGlobal('current', (object)[
-        'check' => Auth::isLoggedIn(),
+    $environment->addGlobal('auth', (object)[
+        'isLoggedIn' => Auth::isLoggedIn(),
         'user' => Auth::getUser()
     ]);
 
