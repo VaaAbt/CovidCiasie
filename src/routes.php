@@ -19,6 +19,7 @@ $app->get('/', [HomeController::class, 'index']);
 
 // chat building
 $app->group('/chat', function (RouteCollectorProxy $group) {
+    $group->get('', [MessageController::class, 'getChat']);
     $group->get('/{user_id}', [MessageController::class, 'getChat']);
     $group->post('/{user_id}', [MessageController::class, 'createMessage']);
 })->add(new AuthMiddleware());
