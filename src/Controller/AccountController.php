@@ -13,6 +13,23 @@ class AccountController extends AbstractController
         return $this->render($response, 'account.html.twig');
     }
 
+    public function account(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $payload = $request->getParsedBody();
+        $user = Auth::getUser();
+
+        // TODO: Basic validation with the validator
+
+        $user->setAttribute('firstname', $payload['firstname']);
+        $user->setAttribute('lastname', $payload['lastname']);
+        $user->setAttribute('email', $payload['email']);
+        $user->setAttribute('location', $payload['location']);
+        $user->setAttribute('contamined', filter_var($payload['contamined'], FILTER_VALIDATE_BOOL));
+        $user->save();
+
+        return $response->withHeader('Location', '/account');
+    }
+
     public function password(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $payload = $request->getParsedBody();
