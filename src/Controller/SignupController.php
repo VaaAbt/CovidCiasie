@@ -20,14 +20,14 @@ class SignupController extends AbstractController
             'lastname' => $request->getParsedBody()['lastname'],
             'email' => $request->getParsedBody()['email'],
             'password' => $request->getParsedBody()['password'],
-            'password-c' => $request->getParsedBody()['password-c'],
+            'password-confirmation' => $request->getParsedBody()['password-confirmation'],
         ];
 
        $dataValidator = [ 
            'firstname' => v::notEmpty()->stringType()->validate($data['firstname']),
            'lastname' => v::notEmpty()->stringType()->validate($data['lastname']),
            'email' => v::notEmpty()->email()->validate($data['email']),
-           'password' => v::identical($data['password'])->validate($data['password-c'])
+           'password' => v::identical($data['password'])->validate($data['password-confirmation'])
         ];
 
         $result = (bool) array_product($dataValidator); 
