@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Utils\Auth;
+use App\Utils\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -18,7 +19,16 @@ class AccountController extends AbstractController
         $payload = $request->getParsedBody();
         $user = Auth::getUser();
 
-        // TODO: Basic validation with the validator
+        $dataValidator = [
+            'current-password' => Validator::isNotEmpty($request->getParsedBody()['current-password']),
+            'new-password' => Validator::isNotEmpty($request->getParsedBody()['new-password']),
+            'new-password-confirmation' => Validator::isNotEmpty($request->getParsedBody()['new-password-confirmation'])
+        ];
+
+        $result = (bool)array_product($dataValidator);
+
+        if (!$result)
+            return $response->withHeader('Location', '/account');
 
         // Change the password if the current password is correct
         if (password_verify($payload['current-password'], $user->getAttribute('password'))) {

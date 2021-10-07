@@ -34,8 +34,8 @@ class AuthController extends AbstractController
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $dataValidator = [
-            'firstname' => Validator::isEmpty($request->getParsedBody()['firstname']),
-            'lastname' => Validator::isEmpty($request->getParsedBody()['lastname']),
+            'firstname' => Validator::isNotEmpty($request->getParsedBody()['firstname']),
+            'lastname' => Validator::isNotEmpty($request->getParsedBody()['lastname']),
             'email' => Validator::isEmail($request->getParsedBody()['email']),
             'password' => Validator::isEqual($request->getParsedBody()['password'], $request->getParsedBody()['password-confirmation'])
         ];

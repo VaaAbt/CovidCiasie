@@ -8,7 +8,7 @@ class Validator
     /**
      * Check if variable isn't empty
      */
-    public static function isEmpty($var): bool
+    public static function isNotEmpty($var): bool
     {
         return ($var != NULL ? true : false);
     }
@@ -24,7 +24,8 @@ class Validator
     /**
      * Check if two variables are equals
      */
-    public static function isEqual($var, $valid){
+    public static function isEqual($var, $valid): bool
+    {
         return ($var == $valid ? true : false);
     }
 }
