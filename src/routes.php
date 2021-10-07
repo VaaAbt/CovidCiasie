@@ -1,6 +1,7 @@
 <?php
 /** @var App $app */
 
+use App\Controller\AccountController;
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\MessageController;
@@ -27,3 +28,6 @@ $app->post('/signup', [AuthController::class, 'signup']);
 
 // logout
 $app->get('/logout', [AuthController::class, 'logout']);
+
+// account
+$app->get('/account', [AccountController::class, 'accountView']);
