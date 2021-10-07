@@ -1,8 +1,7 @@
 {% extends 'template/base.html.twig' %}
 {% block content %}
-    <div class="container-sm">
-        <div class="divider-b"></div>
-        <h1>Signup</h1>
+    <div class="container-sm mt-5">
+        <h1 class="mb-4">Signup</h1>
         <form method="post">
             <div class="mb-3">
                 <label for="firstname" class="form-label">Firstname</label>
@@ -28,7 +27,6 @@
                 <input type="password" class="form-control" id="password-confirmation" name="password-confirmation"
                        required>
             </div>
-            <div class="divider-s"></div>
             <input class="btn btn-primary" type="submit" value="Create a new account">
         </form>
         <br>
