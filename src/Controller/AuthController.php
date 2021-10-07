@@ -6,6 +6,7 @@ use App\Model\User;
 use App\Utils\Auth;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Respect\Validation\Validator as v;
 
 class AuthController extends AbstractController
 {
@@ -32,10 +33,25 @@ class AuthController extends AbstractController
 
     public function signup(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $data = $request->getParsedBody();
-        
-        if ($data['password'] == $data["password-confirmation"]) {
-            User::create($data);
+        $data = [
+            'firstname' => $request->getParsedBody()['firstname'],
+            'lastname' => $request->getParsedBody()['lastname'],
+            'email' => $request->getParsedBody()['email'],
+            'password' => $request->getParsedBody()['password'],
+            'password-confirmation' => $request->getParsedBody()['password-confirmation'],
+        ];
+
+        $dataValidator = [
+            'firstname' => v::notEmpty()->stringType()->validate($data['firstname']),
+            'lastname' => v::notEmpty()->stringType()->validate($data['lastname']),
+            'email' => v::notEmpty()->email()->validate($data['email']),
+            'password' => v::identical($data['password'])->validate($data['password-confirmation'])
+        ];
+
+        $result = (bool)array_product($dataValidator);
+
+        if ($result) {
+            User::create($request->getParsedBody());
             return $this->render($response, 'login.html.twig');
         }
 
