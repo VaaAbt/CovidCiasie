@@ -42,4 +42,5 @@ $app->get('/logout', [AuthController::class, 'logout']);
 // account
 $app->group('/account', function (RouteCollectorProxy $group) {
     $group->get('', [AccountController::class, 'accountView']);
+    $group->post('/password', [AccountController::class, 'password']);
 })->add(new AuthMiddleware());
