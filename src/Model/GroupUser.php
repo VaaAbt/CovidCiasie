@@ -41,4 +41,7 @@ class GroupUser extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public static function getGroupsOfUser($id){
+        return GroupUser::where('user_id', '=', $id)->get();
+    }
 }

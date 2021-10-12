@@ -40,36 +40,6 @@ class Message extends Model
     }
 
     /**
-     * Get all chats that a user have
-     *
-     * @return Messages
-     */
-    public static function getUserChats(){
-
-        $id =  Auth::getUser()->getAttribute('id');
-        $messages = Message::where('sender_id', '=', $id)->orWhere('receiver_id', '=', $id)->get();
-
-        $messages = $messages->toArray();
-
-        $newMessages = [];
-        foreach ($messages as $msg) {
-            foreach ($newMessages as $newMsg) {
-                $found = false;
-                if($newMsg['sender_id'] == $id || $newMsg['receiver_id'] == $id){
-                    $found = true;
-                    break;
-                }
-            }
-            if(!$found){
-                array_push($newMessages, $msg);
-            }
-        }
-
-        dump($newMessages);
-        return $messages;
-    }
-
-    /**
      * Get all message from a discussion between 2 person
      *
      * @return Messages
