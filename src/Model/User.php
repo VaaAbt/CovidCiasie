@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Utils\Auth;
 
 class User extends Model
 {
@@ -62,5 +63,20 @@ class User extends Model
         $locations = User::with('id', 'contamined', 'location')->get();
 
         return $locations;
+    }
+
+    public function talkedTo()
+    {
+        return $this->hasMany(Message::class,'sender_id');
+    }
+
+    public function relatedTo()
+    {
+        return $this->hasMany(Message::class,'receiver_id');
+    }
+
+    public static function getTalkedToUser()
+    {
+        return User::whereRelation('talkedTo', 'receiver_id', Auth::getUser()->getAttribute('id'))->orWhereRelation('relatedTo', 'sender_id', Auth::getUser()->getAttribute('id'))->groupBy('id')->get();
     }
 }

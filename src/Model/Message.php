@@ -44,10 +44,28 @@ class Message extends Model
      *
      * @return Messages
      */
-    public static function getUserChats($user_id){
+    public static function getUserChats(){
 
-        $messages = Message::where('sender_id', $user_id)->get();
+        $id =  Auth::getUser()->getAttribute('id');
+        $messages = Message::where('sender_id', '=', $id)->orWhere('receiver_id', '=', $id)->get();
 
+        $messages = $messages->toArray();
+
+        $newMessages = [];
+        foreach ($messages as $msg) {
+            foreach ($newMessages as $newMsg) {
+                $found = false;
+                if($newMsg['sender_id'] == $id || $newMsg['receiver_id'] == $id){
+                    $found = true;
+                    break;
+                }
+            }
+            if(!$found){
+                array_push($newMessages, $msg);
+            }
+        }
+
+        dump($newMessages);
         return $messages;
     }
 
@@ -58,8 +76,7 @@ class Message extends Model
      */
     public static function getDiscussionMessages($person_id){
 
-        $messages = Message::where([['sender_id', Auth::getUser()],['reveiver_id', $person_id]])->get();
-
+        $messages = Message::where('sender_id', '=', Auth::getUser())->orWhere('reveiver_id', '=', $person_id)->get();
         return $messages;
     }
 
@@ -74,4 +91,15 @@ class Message extends Model
         
         return $messages;
     }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class,'sender_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class,'receiver_id');
+    }
+    
 }   
