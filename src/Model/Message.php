@@ -2,8 +2,9 @@
 
 namespace App\Model;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Utils\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Message extends Model
 {
@@ -24,10 +25,11 @@ class Message extends Model
     /**
      * Create new message
      *
+     * @param array $data
      * @return Message
      */
-    public static function create($data){
-
+    public static function create(array $data): Message
+    {
         $message = new Message();
 
         $message->setAttribute('sender_id', Auth::getUser());
@@ -42,35 +44,37 @@ class Message extends Model
     /**
      * Get all message from a discussion between 2 person
      *
-     * @return Messages
+     * @param int $person_id
+     * @return Message[]
      */
-    public static function getDiscussionMessages($person_id){
+    public static function getDiscussionMessages(int $person_id): array
+    {
+        $userId = Auth::getUser()->getAttribute('id');
 
-        $messages = Message::where([['sender_id', '=', Auth::getUser()->id],[ 'receiver_id', '=', $person_id]])
-        ->orWhere([['sender_id', '=', $person_id],[ 'receiver_id', '=', Auth::getUser()->id]])->get();
-        return $messages;
+        return Message::query()
+            ->where([['sender_id', '=', $userId], ['receiver_id', '=', $person_id]])
+            ->orWhere([['sender_id', '=', $person_id], ['receiver_id', '=', $userId]])
+            ->get();
     }
 
     /**
      * Get all message from a group discussion
      *
-     * @return Messages
+     * @param int $group_id
+     * @return Message[]
      */
-    public static function getGroupDiscussionMessages($group_id){
-
-        $messages = Message::where('group_id', $group_id)->get();
-        
-        return $messages;
-    }
-
-    public function sender()
+    public static function getGroupDiscussionMessages(int $group_id): array
     {
-        return $this->belongsTo(User::class,'sender_id');
+        return Message::query()->where('group_id', $group_id)->get();
     }
 
-    public function receiver()
+    public function sender(): BelongsTo
     {
-        return $this->belongsTo(User::class,'receiver_id');
+        return $this->belongsTo(User::class, 'sender_id');
     }
-    
-}   
+
+    public function receiver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
+}
