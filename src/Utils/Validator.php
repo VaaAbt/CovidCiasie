@@ -2,9 +2,11 @@
 
 namespace App\Utils;
 
+use App\Model\User;
+
 class Validator
 {
-    
+
     /**
      * Check if variable isn't empty
      */
@@ -27,5 +29,13 @@ class Validator
     public static function isEqual($var, $valid): bool
     {
         return ($var == $valid ? true : false);
+    }
+
+    /**
+     * Check if the user dosen't exist
+     */
+    public static function isEmailAlreadyExist($var): bool
+    {
+        return User::query()->where('email', $var)->exists();
     }
 }
