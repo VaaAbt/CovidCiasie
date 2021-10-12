@@ -3,6 +3,7 @@
 
 use App\Controller\AccountController;
 use App\Controller\AuthController;
+use App\Controller\GroupController;
 use App\Controller\HomeController;
 use App\Controller\MessageController;
 use App\Middleware\AuthMiddleware;
@@ -44,4 +45,9 @@ $app->group('/account', function (RouteCollectorProxy $group) {
     $group->get('', [AccountController::class, 'accountView']);
     $group->post('', [AccountController::class, 'account']);
     $group->post('/password', [AccountController::class, 'password']);
+})->add(new AuthMiddleware());
+
+// groups
+$app->group('/groups', function (RouteCollectorProxy $group) {
+    $group->get('/new', [GroupController::class, 'newView']);
 })->add(new AuthMiddleware());

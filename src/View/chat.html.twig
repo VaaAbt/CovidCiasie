@@ -1,30 +1,30 @@
 {% extends 'template/base.html.twig' %}
 {% block content %}
+    <header class="container pt-5 d-flex justify-content-between align-items-center">
+        <h2>Messaging</h2>
+        <a href="/groups/new" class="btn btn-primary">Create a group</a>
+    </header>
 
-<header class="container pt-5">
-<h2>Messaging</h2>
-</header>
-
-<main class="container d-flex flex-row p-3 ">
-    <aside class="border border-primary p-3">
-        <ul class="list-group">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-        </ul>
-    </aside>
-    <section class="border border-secondary flex-grow-1 p-5"> 
-        <div>
-            <p>deded</p>
-        </div>
-        <div class="">
-            <div class="mb-3">
-                <input type="text" class="form-control" id="message" placeholder="" class="flex-grow-1">
+    <main class="container d-flex flex-row p-3 ">
+        <aside class="border border-primary p-3">
+            <ul class="list-group">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">A fourth item</li>
+                <li class="list-group-item">And a fifth one</li>
+            </ul>
+        </aside>
+        <section class="border border-secondary flex-grow-1 p-5">
+            <div>
+                <p>deded</p>
             </div>
-            <button class="btn btn-primary">Send message</button>
-        </div>
-    </section>
-</main>
+            <div class="">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="message" placeholder="" class="flex-grow-1">
+                </div>
+                <button class="btn btn-primary">Send message</button>
+            </div>
+        </section>
+    </main>
 {% endblock %}
