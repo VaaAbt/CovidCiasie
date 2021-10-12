@@ -12,7 +12,7 @@ class Validator
      */
     public static function isNotEmpty($var): bool
     {
-        return ($var != NULL ? true : false);
+        return $var != NULL;
     }
 
     /**
@@ -20,7 +20,7 @@ class Validator
      */
     public static function isEmail($var): bool
     {
-        return (filter_var($var, FILTER_VALIDATE_EMAIL) ? true : false);
+        return (bool)filter_var($var, FILTER_VALIDATE_EMAIL);
     }
 
     /**
@@ -28,7 +28,7 @@ class Validator
      */
     public static function isEqual($var, $valid): bool
     {
-        return ($var == $valid ? true : false);
+        return $var == $valid;
     }
 
     /**
