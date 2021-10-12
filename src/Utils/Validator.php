@@ -32,7 +32,7 @@ class Validator
     }
 
     /**
-     * Check if the user dosen't exist
+     * Check if the user doesn't exist
      */
     public static function isEmailAlreadyExist($var): bool
     {

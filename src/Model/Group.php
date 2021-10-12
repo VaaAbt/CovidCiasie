@@ -49,8 +49,11 @@ class Group extends Model
         );
     }
 
-    public static function getGroupName($id){
-        return Group::where('id', '=', $id)->first()->name;
+    public static function getGroupName($id)
+    {
+        return Group::query()
+            ->where('id', '=', $id)
+            ->first()
+            ->getAttribute('name');
     }
-
 }

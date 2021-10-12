@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Model\GroupUser;
 use App\Model\Message;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use App\Model\User;
 use App\Utils\Auth;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class MessageController extends AbstractController
 {
@@ -27,7 +27,4 @@ class MessageController extends AbstractController
         $data['messages'] = Message::getDiscussionMessages($args['id']);
         return $this->render($response, 'messages.html.twig', $data);
     }
-
-
-
 }

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 class GroupUser extends Model
 {
@@ -41,7 +42,14 @@ class GroupUser extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public static function getGroupsOfUser($id){
-        return GroupUser::where('user_id', '=', $id)->get();
+    /**
+     * Get all the groups of the user
+     *
+     * @param int $id
+     * @return Collection
+     */
+    public static function getGroupsOfUser(int $id): Collection
+    {
+        return GroupUser::query()->where('user_id', '=', $id)->get();
     }
 }

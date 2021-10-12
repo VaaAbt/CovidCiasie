@@ -2,9 +2,11 @@
 
 namespace App\Model;
 
+use App\Utils\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Utils\Auth;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Model
 {
@@ -60,27 +62,40 @@ class User extends Model
 
     public static function getAllLocations()
     {
-        $locations = User::with('id', 'contamined', 'location')->get();
-
-        return $locations;
+        return User::with('id', 'contamined', 'location')->get();
     }
 
-    public function talkedTo()
+    public function talkedTo(): HasMany
     {
-        return $this->hasMany(Message::class,'sender_id');
+        return $this->hasMany(Message::class, 'sender_id');
     }
 
-    public function relatedTo()
+    public function relatedTo(): HasMany
     {
-        return $this->hasMany(Message::class,'receiver_id');
+        return $this->hasMany(Message::class, 'receiver_id');
     }
 
-    public static function getUserFirstname($id){
-        return User::where('id', '=', $id)->first()->firstname;
-    }
-
-    public static function getTalkedToUser()
+    public static function getUserFirstname($id)
     {
-        return User::whereRelation('talkedTo', 'receiver_id', Auth::getUser()->getAttribute('id'))->orWhereRelation('relatedTo', 'sender_id', Auth::getUser()->getAttribute('id'))->groupBy('id')->get();
+        return User::query()
+            ->where('id', '=', $id)
+            ->first()
+            ->getAttribute('firstname');
+    }
+
+    /**
+     * Get all users who the user has talked to
+     *
+     * @return Collection
+     */
+    public static function getTalkedToUser(): Collection
+    {
+        $userId = Auth::getUser()->getAttribute('id');
+
+        return User::query()
+            ->whereRelation('talkedTo', 'receiver_id', $userId)
+            ->orWhereRelation('relatedTo', 'sender_id', $userId)
+            ->groupBy('id')
+            ->get();
     }
 }
