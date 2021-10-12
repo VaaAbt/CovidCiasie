@@ -75,6 +75,10 @@ class User extends Model
         return $this->hasMany(Message::class,'receiver_id');
     }
 
+    public static function getUserFirstname($id){
+        return User::where('id', '=', $id)->first()->firstname;
+    }
+
     public static function getTalkedToUser()
     {
         return User::whereRelation('talkedTo', 'receiver_id', Auth::getUser()->getAttribute('id'))->orWhereRelation('relatedTo', 'sender_id', Auth::getUser()->getAttribute('id'))->groupBy('id')->get();

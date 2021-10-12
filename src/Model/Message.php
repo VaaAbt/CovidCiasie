@@ -46,7 +46,8 @@ class Message extends Model
      */
     public static function getDiscussionMessages($person_id){
 
-        $messages = Message::where('sender_id', '=', Auth::getUser())->orWhere('reveiver_id', '=', $person_id)->get();
+        $messages = Message::where([['sender_id', '=', Auth::getUser()->id],[ 'receiver_id', '=', $person_id]])
+        ->orWhere([['sender_id', '=', $person_id],[ 'receiver_id', '=', Auth::getUser()->id]])->get();
         return $messages;
     }
 

@@ -19,6 +19,12 @@
             </aside>
 
             <section class="border col-10 p-4">
+                {% for msg in messages %}
+                <div>
+                    <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span class="opacity-50">{{user.getUserFirstname(msg.sender_id)}}</span>
+                    {{msg.message}}</p>
+                </div>
+                {% endfor %}
                 <form method="post">
                     <div class="d-flex gap-2">
                         <div class="flex-grow-1">

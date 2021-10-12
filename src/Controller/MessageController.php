@@ -19,5 +19,15 @@ class MessageController extends AbstractController
         return $this->render($response, 'messages.html.twig', $data);
     }
 
+    public function getUserMessageView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $id = Auth::getUser()->getAttribute('id');
+        $data['users'] = User::getTalkedToUser();
+        $data['groups'] = GroupUser::getGroupsOfUser($id);
+        $data['messages'] = Message::getDiscussionMessages($args['id']);
+        return $this->render($response, 'messages.html.twig', $data);
+    }
+
+
 
 }
