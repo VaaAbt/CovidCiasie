@@ -39,7 +39,8 @@ class AuthController extends AbstractController
             'firstname' => Validator::isNotEmpty($payload['firstname']),
             'lastname' => Validator::isNotEmpty($payload['lastname']),
             'email' => Validator::isEmail($payload['email']),
-            'password' => Validator::isEqual($payload['password'], $payload['password-confirmation'])
+            'password' => Validator::isEqual($payload['password'], $payload['password-confirmation']),
+            'email_unique' => !Validator::isEmailAlreadyExist($payload['email'])
         ];
 
         $result = (bool)array_product($dataValidator);
