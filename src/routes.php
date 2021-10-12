@@ -3,6 +3,7 @@
 
 use App\Controller\AccountController;
 use App\Controller\AuthController;
+use App\Controller\GroupController;
 use App\Controller\HomeController;
 use App\Controller\MessageController;
 use App\Middleware\AuthMiddleware;
@@ -17,9 +18,9 @@ use Slim\Routing\RouteCollectorProxy;
  */
 $app->get('/', [HomeController::class, 'index']);
 
-// chat building
-$app->group('/chat', function (RouteCollectorProxy $group) {
-    $group->get('', [MessageController::class, 'getChat']);
+// messages
+$app->group('/messages', function (RouteCollectorProxy $group) {
+    $group->get('', [MessageController::class, 'messagesView']);
     $group->get('/{user_id}', [MessageController::class, 'getChat']);
     $group->post('/{user_id}', [MessageController::class, 'createMessage']);
 })->add(new AuthMiddleware());
@@ -44,4 +45,10 @@ $app->group('/account', function (RouteCollectorProxy $group) {
     $group->get('', [AccountController::class, 'accountView']);
     $group->post('', [AccountController::class, 'account']);
     $group->post('/password', [AccountController::class, 'password']);
+})->add(new AuthMiddleware());
+
+// groups
+$app->group('/groups', function (RouteCollectorProxy $group) {
+    $group->get('/new', [GroupController::class, 'newView']);
+    $group->post('/new', [GroupController::class, 'new']);
 })->add(new AuthMiddleware());
