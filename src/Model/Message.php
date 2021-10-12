@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Utils\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -45,9 +46,9 @@ class Message extends Model
      * Get all message from a discussion between 2 person
      *
      * @param int $person_id
-     * @return Message[]
+     * @return Collection
      */
-    public static function getDiscussionMessages(int $person_id): array
+    public static function getDiscussionMessages(int $person_id): Collection
     {
         $userId = Auth::getUser()->getAttribute('id');
 
@@ -61,9 +62,9 @@ class Message extends Model
      * Get all message from a group discussion
      *
      * @param int $group_id
-     * @return Message[]
+     * @return Collection
      */
-    public static function getGroupDiscussionMessages(int $group_id): array
+    public static function getGroupDiscussionMessages(int $group_id): Collection
     {
         return Message::query()->where('group_id', $group_id)->get();
     }
