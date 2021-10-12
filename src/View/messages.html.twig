@@ -9,10 +9,9 @@
         <main class="row align-items-start my-4">
             <aside class="col-2">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action active">Hugo Fresnel</a>
-                    <a href="#" class="list-group-item list-group-item-action">Group 1</a>
-                    <a href="#" class="list-group-item list-group-item-action">Valentin Aubertin</a>
-                    <a href="#" class="list-group-item list-group-item-action">Elon Musk</a>
+                {% for user in users %}
+                    <a href="/messages/user/{{user.id}}" class="list-group-item list-group-item-action">{{ user.firstname }}</a>
+                {% endfor %}
                 </div>
             </aside>
 

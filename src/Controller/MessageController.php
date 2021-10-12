@@ -16,9 +16,5 @@ class MessageController extends AbstractController
         return $this->render($response, 'messages.html.twig', $data);
     }
 
-    public function createMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
-    {
-        Message::create($request->getParsedBody());
-        header("Refresh:0");
-    }
+
 }
