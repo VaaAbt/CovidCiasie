@@ -2,17 +2,15 @@
 
 namespace App\Controller;
 
+use App\Model\Message;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Model\Message;
-use App\Utils\Auth;
 
 class MessageController extends AbstractController
 {
-    public function getChat(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function messagesView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        // $data['chats'] = Message::getUserChats(Auth::getUser());
-        return $this->render($response, 'chat.html.twig');
+        return $this->render($response, 'messages.html.twig');
     }
 
     public function createMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
