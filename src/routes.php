@@ -55,3 +55,7 @@ $app->group('/groups', function (RouteCollectorProxy $group) {
     $group->get('/new', [GroupController::class, 'newView']);
     $group->post('/new', [GroupController::class, 'new']);
 })->add(new AuthMiddleware());
+
+//map
+$app->get('/map', [MapController::class, 'mapView']);
+$app->post('/map', [MapController::class, 'getOtherLocations']);

@@ -60,9 +60,17 @@ class User extends Model
         );
     }
 
-    public static function getAllLocations()
+    public static function getAllLocations(): array
     {
-        return User::with('id', 'contamined', 'location')->get();
+        $users = User::where('contamined', 1)->get();
+
+        $data = array();
+        foreach($users as $user){
+            $location = Location::getLocationId($user->id);
+            $data[] = ['longitude' => $location->longitude, 'latitude' => $location->latitude];
+        }
+
+        return $data;
     }
 
     public function talkedTo(): HasMany
