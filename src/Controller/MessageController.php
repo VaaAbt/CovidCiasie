@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\GroupUser;
 use App\Model\Message;
 use App\Model\User;
+use App\Model\Group;
 use App\Utils\Auth;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -25,6 +26,7 @@ class MessageController extends AbstractController
         $data['users'] = User::getTalkedToUser();
         $data['groups'] = GroupUser::getGroupsOfUser($id);
         $data['messages'] = Message::getDiscussionMessages($args['id']);
+        $data['chatName'] = User::getUserFirstname($args['id']);
         return $this->render($response, 'messages.html.twig', $data);
     }
 
@@ -45,6 +47,7 @@ class MessageController extends AbstractController
         $data['users'] = User::getTalkedToUser();
         $data['groups'] = GroupUser::getGroupsOfUser($id);
         $data['messages'] = Message::getGroupDiscussionMessages($args['id']);
+        $data['chatName'] = Group::getGroupName($args['id']);
         return $this->render($response, 'messages.html.twig', $data);
     }
 

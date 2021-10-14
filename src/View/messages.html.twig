@@ -21,6 +21,7 @@
             </aside>
 
             <section class="border col-10 p-4">
+                <h3>{{chatName}}</h3>
                 {% for msg in messages %}
                     <div>
                         <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
