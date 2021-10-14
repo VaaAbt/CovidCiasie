@@ -2,6 +2,7 @@
 session_start();
 
 use DI\Container;
+use Slim\Csrf\Guard;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -11,6 +12,16 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
+
+$responseFactory = $app->getResponseFactory();
+
+// Register Middleware On Container
+$container->set('csrf', function () use ($responseFactory) {
+    return new Guard($responseFactory);
+});
+
+// Register Middleware To Be Executed On All Routes
+$app->add('csrf');
 
 require __DIR__ . '/../conf/dependencies.php';
 require __DIR__ . '/../conf/bootstrap.php';
