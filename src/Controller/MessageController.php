@@ -37,6 +37,6 @@ class MessageController extends AbstractController
         ];
         Message::create($message);
         $data['messages'] = Message::getDiscussionMessages($args['id']);
-        return $response->withHeader('Location', '/messages/user/'.$args['id'])->withStatus(302);
+        return $response->withHeader('Location', '/messages/user/' . $args['id'])->withStatus(302);
     }
 }

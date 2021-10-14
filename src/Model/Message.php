@@ -21,7 +21,7 @@ class Message extends Model
      *
      * @var bool
      */
-    public $message;
+    public $timestamps = false;
 
     /**
      * Create new message
@@ -33,7 +33,7 @@ class Message extends Model
     {
         $message = new Message();
 
-        $message->setAttribute('sender_id', Auth::getUser());
+        $message->setAttribute('sender_id', Auth::getUser()->getAttribute('id'));
         $message->setAttribute('receiver_id', $data['receiver_id']);
         $message->setAttribute('group_id', $data['group_id']);
         $message->setAttribute('message', $data['message']);
