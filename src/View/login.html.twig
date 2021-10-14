@@ -3,6 +3,7 @@
     <div class="container my-5" style="max-width: 600px;">
         <h1 class="mb-4">Log in</h1>
         <form method="post">
+            {{ csrf_token() }}
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>

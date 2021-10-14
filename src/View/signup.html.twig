@@ -3,6 +3,7 @@
     <div class="container my-5" style="max-width: 600px;">
         <h1 class="mb-4">Signup</h1>
         <form method="post">
+            {{ csrf_token() }}
             <div class="row mb-3">
                 <div class="col-6">
                     <label for="firstname" class="form-label">Firstname</label>

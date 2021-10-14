@@ -9,23 +9,31 @@
         <main class="row align-items-start my-4">
             <aside class="col-2">
                 <div class="list-group">
-                {% for user in users %}
-                    <a href="/messages/user/{{user.id}}" class="list-group-item list-group-item-action">{{ user.firstname }}</a>
-                {% endfor %}
-                {% for grp in groups %}
-                    <a href="/messages/group/{{grp.group_id	}}" class="list-group-item list-group-item-action">{{ group.getGroupName(grp.group_id) }}</a>
-                {% endfor %}
+                    {% for user in users %}
+                        <a href="/messages/user/{{ user.id }}"
+                           class="list-group-item list-group-item-action">{{ user.firstname }} {{ user.lastname }}</a>
+                    {% endfor %}
+                    {% for grp in groups %}
+                        <a href="/messages/group/{{ grp.group_id }}"
+                           class="list-group-item list-group-item-action">{{ grp.group().first().name }}</a>
+                    {% endfor %}
                 </div>
             </aside>
 
             <section class="border col-10 p-4">
                 {% for msg in messages %}
-                <div>
-                    <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span class="opacity-50">{{user.getUserFirstname(msg.sender_id)}}</span>
-                    {{msg.message}}</p>
-                </div>
+                    <div>
+                        <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
+                                    class="opacity-50">{{ msg.sender().first().firstname }} {{ msg.sender().first().lastname }}</span>
+                            {{ msg.message }}</p>
+                    </div>
                 {% endfor %}
+<<<<<<< HEAD
                 <form action='' method="post">
+=======
+                <form method="post">
+                    {{ csrf_token() }}
+>>>>>>> 5d7a19ba4bd6c400953b7009dfd81f2ab7591786
                     <div class="d-flex gap-2">
                         <div class="flex-grow-1">
                             <input type="text" class="form-control" name="message" id="message" required

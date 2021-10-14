@@ -1,15 +1,17 @@
 <?php
 
-use App\Model\Message;
-use App\Model\User;
-use App\Model\Group;
 use App\Utils\Auth;
 use DI\Container;
 use Slim\App;
+use Slim\Csrf\Guard;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
+use Twig\TwigFunction;
 
 return static function (App $app) {
+    /** @var Container $container */
+    $container = $app->getContainer();
+
     // Create Twig
     $twig = Twig::create('../src/View', ['cache' => false]);
 
@@ -23,13 +25,21 @@ return static function (App $app) {
         'user' => Auth::getUser()
     ]);
 
-    // Add Twig model variable
-    $environment->addGlobal('message', new Message());
-    $environment->addGlobal('user', new User());
-    $environment->addGlobal('group', new Group());
+    // Add CSRF function to generate fields
+    $environment->addFunction(new TwigFunction('csrf_token', function () use ($container) {
+        /* @var Guard $csrf */
+        $csrf = $container->get('csrf');
+        $csrfNameKey = $csrf->getTokenNameKey();
+        $csrfValueKey = $csrf->getTokenValueKey();
+        $csrfName = $csrf->getTokenName();
+        $csrfValue = $csrf->getTokenValue();
+
+        return <<<HTML
+            <input type="hidden" name="$csrfNameKey" value="$csrfName">
+            <input type="hidden" name="$csrfValueKey" value="$csrfValue">
+        HTML;
+    }, ['is_safe' => ['html']]));
 
     // Add twig to container
-    /** @var Container $container */
-    $container = $app->getContainer();
     $container->set('twig', $twig);
 };
