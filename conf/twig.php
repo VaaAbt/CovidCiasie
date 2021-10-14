@@ -1,8 +1,5 @@
 <?php
 
-use App\Model\Message;
-use App\Model\User;
-use App\Model\Group;
 use App\Utils\Auth;
 use DI\Container;
 use Slim\App;
@@ -22,11 +19,6 @@ return static function (App $app) {
         'isLoggedIn' => Auth::isLoggedIn(),
         'user' => Auth::getUser()
     ]);
-
-    // Add Twig model variable
-    $environment->addGlobal('message', new Message());
-    $environment->addGlobal('user', new User());
-    $environment->addGlobal('group', new Group());
 
     // Add twig to container
     /** @var Container $container */
