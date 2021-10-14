@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Group;
 use App\Utils\Auth;
+use App\Utils\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -18,7 +19,14 @@ class GroupController extends AbstractController
     {
         $payload = $request->getParsedBody();
 
-        // TODO: Validate the payload
+        $dataValidator = [
+            'name' => Validator::isNotEmpty($request->getParsedBody()['name'])
+        ];
+
+        $result = (bool)array_product($dataValidator);
+
+        if (!$result)
+            return $response->withHeader('Location', '/groups/new');
 
         $group = new Group();
         $group->setAttribute('name', $payload['name']);
