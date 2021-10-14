@@ -11,7 +11,7 @@
                 <div class="list-group">
                     {% for user in users %}
                         <a href="/messages/user/{{ user.id }}"
-                           class="list-group-item list-group-item-action">{{ user.firstname }}</a>
+                           class="list-group-item list-group-item-action">{{ user.firstname }} {{ user.lastname }}</a>
                     {% endfor %}
                     {% for grp in groups %}
                         <a href="/messages/group/{{ grp.group_id }}"
@@ -24,7 +24,7 @@
                 {% for msg in messages %}
                     <div>
                         <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
-                                    class="opacity-50">{{ user.getUserFirstname(msg.sender_id) }}</span>
+                                    class="opacity-50">{{ msg.sender().first().firstname }} {{ msg.sender().first().lastname }}</span>
                             {{ msg.message }}</p>
                     </div>
                 {% endfor %}
