@@ -38,4 +38,24 @@ class MessageController extends AbstractController
         Message::create($message);
         return $response->withHeader('Location', '/messages/user/' . $args['id'])->withStatus(302);
     }
+
+    public function getGroupMessageView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $id = Auth::getUser()->getAttribute('id');
+        $data['users'] = User::getTalkedToUser();
+        $data['groups'] = GroupUser::getGroupsOfUser($id);
+        $data['messages'] = Message::getGroupDiscussionMessages($args['id']);
+        return $this->render($response, 'messages.html.twig', $data);
+    }
+
+    public function createGroupMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $msg = $request->getParsedBody();
+        $message = [
+            'group_id' => $args['id'],
+            'message' => $msg['message']
+        ];
+        Message::create($message);
+        return $response->withHeader('Location', '/messages/group/' . $args['id'])->withStatus(302);
+    }
 }

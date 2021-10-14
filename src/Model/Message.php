@@ -53,8 +53,8 @@ class Message extends Model
         $userId = Auth::getUser()->getAttribute('id');
 
         return Message::query()
-            ->where([['sender_id', '=', $userId], ['receiver_id', '=', $person_id]])
-            ->orWhere([['sender_id', '=', $person_id], ['receiver_id', '=', $userId]])
+            ->where([['sender_id', '=', $userId], ['receiver_id', '=', $person_id], ['group_id', '=', NULL]])
+            ->orWhere([['sender_id', '=', $person_id], ['receiver_id', '=', $userId], ['group_id', '=', NULL]])
             ->get();
     }
 
@@ -66,7 +66,7 @@ class Message extends Model
      */
     public static function getGroupDiscussionMessages(int $group_id): Collection
     {
-        return Message::query()->where('group_id', $group_id)->get();
+        return Message::query()->where('group_id', '=', $group_id)->get();
     }
 
     public function sender(): BelongsTo

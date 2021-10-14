@@ -23,6 +23,9 @@ $app->group('/messages', function (RouteCollectorProxy $group) {
     $group->get('', [MessageController::class, 'messagesView']);
     $group->get('/user/{id}', [MessageController::class, 'getUserMessageView']);
     $group->post('/user/{id}', [MessageController::class, 'createMessage']);
+
+    $group->get('/group/{id}', [MessageController::class, 'getGroupMessageView']);
+    $group->post('/group/{id}', [MessageController::class, 'createGroupMessage']);
 })->add(new AuthMiddleware());
 
 // login
