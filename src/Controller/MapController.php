@@ -16,7 +16,9 @@ class MapController extends AbstractController
     public function getOtherLocations(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $locations = User::getAllLocations();
-        refresh("Refresh:0");
+        return $this->render($response, 'map.html.twig', [
+            'locations' => $locations
+        ]);
     }
 
 }
