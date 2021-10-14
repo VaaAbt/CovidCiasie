@@ -22,7 +22,7 @@ $app->get('/', [HomeController::class, 'index']);
 $app->group('/messages', function (RouteCollectorProxy $group) {
     $group->get('', [MessageController::class, 'messagesView']);
     $group->get('/user/{id}', [MessageController::class, 'getUserMessageView']);
-    $group->post('/{user_id}', [MessageController::class, 'createMessage']);
+    $group->post('/user/{id}', [MessageController::class, 'createMessage']);
 })->add(new AuthMiddleware());
 
 // login

@@ -27,4 +27,16 @@ class MessageController extends AbstractController
         $data['messages'] = Message::getDiscussionMessages($args['id']);
         return $this->render($response, 'messages.html.twig', $data);
     }
+
+    public function createMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $msg = $request->getParsedBody();
+        $message = [
+            'receiver_id' => $args['id'],
+            'message' => $msg['message']
+        ];
+        Message::create($message);
+        $data['messages'] = Message::getDiscussionMessages($args['id']);
+        return $response->withHeader('Location', '/messages/user/'.$args['id'])->withStatus(302);
+    }
 }
