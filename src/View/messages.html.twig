@@ -28,16 +28,12 @@
                             {{ msg.message }}</p>
                     </div>
                 {% endfor %}
-<<<<<<< HEAD
-                <form action='' method="post">
-=======
                 <form method="post">
                     {{ csrf_token() }}
->>>>>>> 5d7a19ba4bd6c400953b7009dfd81f2ab7591786
                     <div class="d-flex gap-2">
                         <div class="flex-grow-1">
                             <input type="text" class="form-control" name="message" id="message" required
-                                   placeholder="Your message" aria-label="Your message"  autocomplete="off" >
+                                   placeholder="Your message" aria-label="Your message" autocomplete="off">
                         </div>
                         <button type="submit" class="btn btn-primary">Send message</button>
                     </div>
