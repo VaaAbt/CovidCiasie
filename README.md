@@ -16,5 +16,5 @@ Pour lancer le projet il suffit de démarrer les services de docker via `sudo do
 
 Ainsi sont disponibles :
 
-- Le projet en lui-même sur `covidciasie:8080`
-- La gestion de la base de données avec phpmyadmin sur `localhost:3000` (en dev: USER=root, PASSWORD=root)
+- Le projet en lui-même sur `covidciasie.com:8080`
+- La gestion de la base de données avec phpmyadmin sur `localhost:3000` (en dev: USER=covidciasie, PASSWORD=covidciasie)

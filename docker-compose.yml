@@ -24,8 +24,10 @@ services:
   mariadb:
     image: mariadb:latest
     environment:
-      MARIADB_ROOT_PASSWORD: "root"
       MARIADB_DATABASE: "covidciasie"
+      MARIADB_USER: "covidciasie"
+      MARIADB_PASSWORD: "covidciasie"
+      MARIADB_RANDOM_ROOT_PASSWORD: 1
     volumes:
       - "./CREATE_TABLES.sql:/docker-entrypoint-initdb.d/CREATE_TABLES.sql"
       - "./var/database:/var/lib/mysql"
