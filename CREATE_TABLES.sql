@@ -65,4 +65,14 @@ CREATE TABLE IF NOT EXISTS covidciasie.contacts
         FOREIGN KEY (user2_id) REFERENCES users (id)
 );
 
+CREATE TABLE IF NOT EXISTS covidciasie.files
+(
+    id int(11) NOT NULL,
+    filename varchar(255) NOT NULL,
+    group_id int(11) NOT NUlL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_file_id_group
+        FOREIGN KEY (group_id) REFERENCES `groups` (id)
+);
+
 COMMIT;
