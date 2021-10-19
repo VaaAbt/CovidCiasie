@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+use App\Middleware\CORSMiddleware;
 use DI\Container;
 use Slim\Csrf\Guard;
 use Slim\Factory\AppFactory;
@@ -22,6 +23,9 @@ $container->set('csrf', function () use ($responseFactory) {
 
 // Register Middleware To Be Executed On All Routes
 $app->add('csrf');
+
+// CORS
+$app->add(new CORSMiddleware());
 
 require __DIR__ . '/../conf/dependencies.php';
 require __DIR__ . '/../conf/bootstrap.php';

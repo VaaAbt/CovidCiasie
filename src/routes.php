@@ -5,10 +5,12 @@ use App\Controller\AccountController;
 use App\Controller\AuthController;
 use App\Controller\GroupController;
 use App\Controller\HomeController;
+use App\Controller\MapController;
 use App\Controller\MessageController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use Slim\App;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteCollectorProxy;
 
 /**
@@ -59,3 +61,11 @@ $app->group('/groups', function (RouteCollectorProxy $group) {
 //map
 $app->get('/map', [MapController::class, 'mapView']);
 $app->post('/map', [MapController::class, 'getOtherLocations']);
+
+// CORS
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($request, $response) {
+    throw new HttpNotFoundException($request);
+});
