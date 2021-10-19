@@ -61,4 +61,15 @@ class MessageController extends AbstractController
         Message::create($message);
         return $response->withHeader('Location', '/messages/group/' . $args['id'])->withStatus(302);
     }
+
+    public function searchUser(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $search = $request->getParsedBody();
+        $id = Auth::getUser()->getAttribute('id');
+        $data['users'] = User::getTalkedToUser();
+        $data['groups'] = GroupUser::getGroupsOfUser($id);
+        $data['usersSearch'] = User::getUsersWith($search['username']);
+
+        return $this->render($response, 'messages.html.twig', $data);
+    }
 }

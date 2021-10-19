@@ -106,4 +106,14 @@ class User extends Model
             ->groupBy('id')
             ->get();
     }
+
+    /**
+     * Get all users that matches given string
+     *
+     * @return Collection
+     */
+    public static function getUsersWith($search): Collection
+    {
+        return User::query()->where('firstname', 'LIKE', '%'.$search.'%')->get(); 
+    }
 }

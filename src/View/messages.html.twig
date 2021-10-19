@@ -21,24 +21,48 @@
             </aside>
 
             <section class="border col-10 p-4">
-                <h3>{{chatName}}</h3>
-                {% for msg in messages %}
-                    <div>
-                        <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
-                                    class="opacity-50">{{ msg.sender().first().firstname }} {{ msg.sender().first().lastname }}</span>
-                            {{ msg.message }}</p>
-                    </div>
-                {% endfor %}
-                <form method="post">
-                    {{ csrf_token() }}
-                    <div class="d-flex gap-2">
-                        <div class="flex-grow-1">
-                            <input type="text" class="form-control" name="message" id="message" required
-                                   placeholder="Your message" aria-label="Your message" autocomplete="off">
+                {% if chatName == null %}
+
+                    <form action='/messages/search-user' method="post">
+                        {{ csrf_token() }}
+                        <div class="d-flex gap-2">
+                            <div class="flex-grow-1">
+                                <input type="text" class="form-control" name="username" id="username" required
+                                    placeholder="User name" aria-label="User name" autocomplete="off">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search User</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send message</button>
+                    </form>
+                    <div class="list-group">
+                    {% for user in usersSearch %}
+                        <a class="list-group-item list-group-item-action">
+                            {{user.firstname}}
+                        </a>
+                    {% endfor %}
                     </div>
-                </form>
+
+                {% else %}
+                    <div class="d-flex">
+                        <h3>{{chatName}}</h3>
+                    </div>
+                    {% for msg in messages %}
+                        <div>
+                            <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
+                                        class="opacity-50">{{ msg.sender().first().firstname }} {{ msg.sender().first().lastname }}</span>
+                                {{ msg.message }}</p>
+                        </div>
+                    {% endfor %}
+                    <form action='' method="post">
+                        {{ csrf_token() }}
+                        <div class="d-flex gap-2">
+                            <div class="flex-grow-1">
+                                <input type="text" class="form-control" name="message" id="message" required
+                                    placeholder="Your message" aria-label="Your message" autocomplete="off">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send message</button>
+                        </div>
+                    </form>
+                {% endif %}
             </section>
         </main>
     </div>
