@@ -20,13 +20,14 @@ class GroupController extends AbstractController
         $payload = $request->getParsedBody();
 
         $dataValidator = [
-            'name' => Validator::isNotEmpty($request->getParsedBody()['name'])
+            'name' => Validator::isNotEmpty($payload['name'])
         ];
 
         $result = (bool)array_product($dataValidator);
 
-        if (!$result)
+        if (!$result) {
             return $response->withHeader('Location', '/groups/new');
+        }
 
         $group = new Group();
         $group->setAttribute('name', $payload['name']);

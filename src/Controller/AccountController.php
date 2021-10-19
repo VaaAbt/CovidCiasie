@@ -45,15 +45,16 @@ class AccountController extends AbstractController
         $user = Auth::getUser();
 
         $dataValidator = [
-            'current-password' => Validator::isNotEmpty($request->getParsedBody()['current-password']),
-            'new-password' => Validator::isNotEmpty($request->getParsedBody()['new-password']),
-            'new-password-confirmation' => Validator::isNotEmpty($request->getParsedBody()['new-password-confirmation'])
+            'current-password' => Validator::isNotEmpty($payload['current-password']),
+            'new-password' => Validator::isNotEmpty($payload['new-password']),
+            'new-password-confirmation' => Validator::isNotEmpty($payload['new-password-confirmation'])
         ];
 
         $result = (bool)array_product($dataValidator);
 
-        if (!$result)
+        if (!$result) {
             return $response->withHeader('Location', '/account');
+        }
 
         // Change the password if the current password is correct
         if (password_verify($payload['current-password'], $user->getAttribute('password'))) {

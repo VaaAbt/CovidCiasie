@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
+use App\Model\Group;
 use App\Model\GroupUser;
 use App\Model\Message;
 use App\Model\User;
-use App\Model\Group;
 use App\Utils\Auth;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -53,10 +53,10 @@ class MessageController extends AbstractController
 
     public function createGroupMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
-        $msg = $request->getParsedBody();
+        $payload = $request->getParsedBody();
         $message = [
             'group_id' => $args['id'],
-            'message' => $msg['message']
+            'message' => $payload['message']
         ];
         Message::create($message);
         return $response->withHeader('Location', '/messages/group/' . $args['id'])->withStatus(302);
