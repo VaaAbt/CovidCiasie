@@ -1,0 +1,17 @@
+{% extends 'template/base.html.twig' %}
+{% block content %}
+    {% include 'messages/imports/header.html.twig' %}
+
+    <div class="container">
+        <main class="row align-items-start my-4">
+            <aside class="col-2">
+                {% include 'messages/imports/list.html.twig' %}
+            </aside>
+
+            <section class="border col-10 p-4">
+                {% include 'messages/imports/messages.html.twig' %}
+                {% include 'messages/imports/form.html.twig' %}
+            </section>
+        </main>
+    </div>
+{% endblock %}

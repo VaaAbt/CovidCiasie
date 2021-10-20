@@ -13,7 +13,7 @@ return static function (App $app) {
     $container = $app->getContainer();
 
     // Create Twig
-    $twig = Twig::create('../src/View', ['cache' => false]);
+    $twig = Twig::create('../src/View', ['cache' => false, 'debug' => true]);
 
     // Add Twig-View Middleware
     $app->add(TwigMiddleware::create($app, $twig));

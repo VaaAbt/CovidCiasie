@@ -17,7 +17,7 @@ class MessageController extends AbstractController
         $id = Auth::getUser()->getAttribute('id');
         $data['users'] = User::getTalkedToUser();
         $data['groups'] = GroupUser::getGroupsOfUser($id);
-        return $this->render($response, 'messages.html.twig', $data);
+        return $this->render($response, 'messages/index.html.twig', $data);
     }
 
     public function getUserMessageView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -27,7 +27,7 @@ class MessageController extends AbstractController
         $data['groups'] = GroupUser::getGroupsOfUser($id);
         $data['messages'] = Message::getDiscussionMessages($args['id']);
         $data['chatName'] = User::getUserFirstname($args['id']);
-        return $this->render($response, 'messages.html.twig', $data);
+        return $this->render($response, 'messages/direct.html.twig', $data);
     }
 
     public function createMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -48,7 +48,7 @@ class MessageController extends AbstractController
         $data['groups'] = GroupUser::getGroupsOfUser($id);
         $data['messages'] = Message::getGroupDiscussionMessages($args['id']);
         $data['chatName'] = Group::getGroupName($args['id']);
-        return $this->render($response, 'messages.html.twig', $data);
+        return $this->render($response, 'messages/group.html.twig', $data);
     }
 
     public function createGroupMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
