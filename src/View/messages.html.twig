@@ -20,26 +20,28 @@
                 </div>
             </aside>
 
-            <section class="border col-10 p-4">
-                <h3>{{chatName}}</h3>
-                {% for msg in messages %}
-                    <div>
-                        <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
-                                    class="opacity-50">{{ msg.sender().first().firstname }} {{ msg.sender().first().lastname }}</span>
-                            {{ msg.message }}</p>
-                    </div>
-                {% endfor %}
-                <form method="post">
-                    {{ csrf_token() }}
-                    <div class="d-flex gap-2">
-                        <div class="flex-grow-1">
-                            <input type="text" class="form-control" name="message" id="message" required
-                                   placeholder="Your message" aria-label="Your message" autocomplete="off">
+            {% if chatName %}
+                <section class="border col-10 p-4">
+                    <h3 class="mb-3">{{ chatName }}</h3>
+                    {% for msg in messages %}
+                        <div>
+                            <p class="{{ msg.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
+                                        class="opacity-50">{{ msg.sender().first().firstname }} {{ msg.sender().first().lastname }}</span>
+                                {{ msg.message }}</p>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send message</button>
-                    </div>
-                </form>
-            </section>
+                    {% endfor %}
+                    <form method="post">
+                        {{ csrf_token() }}
+                        <div class="d-flex gap-2">
+                            <div class="flex-grow-1">
+                                <input type="text" class="form-control" name="message" id="message" required
+                                       placeholder="Your message" aria-label="Your message" autocomplete="off">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send message</button>
+                        </div>
+                    </form>
+                </section>
+            {% endif %}
         </main>
     </div>
 {% endblock %}
