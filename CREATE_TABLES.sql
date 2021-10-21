@@ -75,4 +75,26 @@ CREATE TABLE IF NOT EXISTS covidciasie.files
         FOREIGN KEY (group_id) REFERENCES `groups` (id)
 );
 
+CREATE TABLE IF NOT EXISTS covidciasie.announcements
+(
+    id int(11) NOT NULL,
+    group_id int(11) NOT NUlL,
+    message varchar(255) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_announcement_id_group
+        FOREIGN KEY (group_id) REFERENCES `groups` (id)
+);
+
+CREATE TABLE IF NOT EXISTS covidciasie.invitations
+(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    sender_id int(11) NOT NULL,
+    receiver_id int(11) NOT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_users1_id_invitations
+        FOREIGN KEY (sender_id) REFERENCES users (id),
+    CONSTRAINT fk_users2_id_invitations
+        FOREIGN KEY (receiver_id) REFERENCES users (id)
+);
+
 COMMIT;
