@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS covidciasie.files
 
 CREATE TABLE IF NOT EXISTS covidciasie.announcements
 (
-    id int(11) NOT NULL,
+    id int(11) NOT NULL AUTO_INCREMENT,
     group_id int(11) NOT NUlL,
     message varchar(255) NOT NULL,
     PRIMARY KEY (id),
