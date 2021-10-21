@@ -3,6 +3,7 @@
 namespace App\Middleware;
 
 use App\Utils\Auth;
+use App\Utils\FlashMessages;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
@@ -23,6 +24,7 @@ class AuthMiddleware
         if (!Auth::isLoggedIn()) {
             $response = new Response();
 
+            FlashMessages::set('auth', 'You must be logged in to continue.');
             return $response->withHeader('Location', '/login')->withStatus(302);
         }
 

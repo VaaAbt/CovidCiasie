@@ -3,6 +3,16 @@
     <div class="container my-5" style="max-width: 600px;">
         <section class="mb-5">
             <h1 class="mb-4">My account</h1>
+            {% if has_flash('account') %}
+                <div class="alert alert-danger">
+                    {{ retrieve_flash('account') }}
+                </div>
+            {% endif %}
+            {% if has_flash('account-success') %}
+                <div class="alert alert-success">
+                    {{ retrieve_flash('account-success') }}
+                </div>
+            {% endif %}
             <form method="post">
                 {{ csrf_token() }}
                 <div class="row mb-3">
@@ -38,6 +48,16 @@
 
         <section>
             <h1 class="mt-5 mb-4">Change password</h1>
+            {% if has_flash('password') %}
+                <div class="alert alert-danger">
+                    {{ retrieve_flash('password') }}
+                </div>
+            {% endif %}
+            {% if has_flash('password-success') %}
+                <div class="alert alert-success">
+                    {{ retrieve_flash('password-success') }}
+                </div>
+            {% endif %}
             <form action="/account/password" method="post">
                 {{ csrf_token() }}
                 <div class="form-group mb-3">

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Group;
 use App\Utils\Auth;
+use App\Utils\FlashMessages;
 use App\Utils\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,6 +27,7 @@ class GroupController extends AbstractController
         $result = (bool)array_product($dataValidator);
 
         if (!$result) {
+            FlashMessages::set('group', 'The submitted data are invalid.');
             return $response->withHeader('Location', '/groups/new');
         }
 
@@ -35,6 +37,6 @@ class GroupController extends AbstractController
 
         $group->users()->save(Auth::getUser());
 
-        return $response->withHeader('Location', '/messages');
+        return $response->withHeader('Location', "/messages/group/{$group->getAttribute('id')}");
     }
 }

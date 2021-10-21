@@ -1,0 +1,7 @@
+{% for message in messages %}
+    <div>
+        <p class="{{ message.sender_id == auth.user.id ? 'text-end' : 'text-start' }} "><span
+                    class="opacity-50">{{ message.sender().first().firstname }} {{ message.sender().first().lastname }}</span>
+            {{ message.message }}</p>
+    </div>
+{% endfor %}

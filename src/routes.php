@@ -23,10 +23,10 @@ $app->get('/', [HomeController::class, 'index']);
 // messages
 $app->group('/messages', function (RouteCollectorProxy $group) {
     $group->get('', [MessageController::class, 'messagesView']);
-    $group->get('/user/{id}', [MessageController::class, 'getUserMessageView']);
+    $group->get('/user/{id}', [MessageController::class, 'getUserMessagesView']);
     $group->post('/user/{id}', [MessageController::class, 'createMessage']);
 
-    $group->get('/group/{id}', [MessageController::class, 'getGroupMessageView']);
+    $group->get('/group/{id}', [MessageController::class, 'getGroupMessagesView']);
     $group->post('/group/{id}', [MessageController::class, 'createGroupMessage']);
 
     $group->post('/search-user', [MessageController::class, 'searchUser']);

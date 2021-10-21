@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Model\User;
 use App\Utils\Auth;
+use App\Utils\FlashMessages;
 use App\Utils\Validator;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,8 +29,20 @@ class AccountController extends AbstractController
 
         $result = (bool)array_product($dataValidator);
 
-        if (!$result)
-            return $response->withHeader('Location', '/account');
+        if (!$result) {
+            FlashMessages::set('account', 'The submitted data are invalid.');
+            return $response->withHeader('Location', '/account')->withStatus(302);
+        }
+
+        $userExists = User::query()
+            ->where('email', '=', $payload['email'])
+            ->where('id', '!=', $user->getAttribute('id'))
+            ->exists();
+
+        if ($userExists) {
+            FlashMessages::set('account', 'The submitted email is already taken.');
+            return $response->withHeader('Location', '/account')->withStatus(302);
+        }
 
         $user->setAttribute('firstname', $payload['firstname']);
         $user->setAttribute('lastname', $payload['lastname']);
@@ -36,7 +50,8 @@ class AccountController extends AbstractController
         $user->setAttribute('contamined', filter_var($payload['contamined'], FILTER_VALIDATE_BOOL));
         $user->save();
 
-        return $response->withHeader('Location', '/account');
+        FlashMessages::set('account-success', 'Your account has been updated.');
+        return $response->withHeader('Location', '/account')->withStatus(302);
     }
 
     public function password(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
@@ -53,15 +68,20 @@ class AccountController extends AbstractController
         $result = (bool)array_product($dataValidator);
 
         if (!$result) {
+            FlashMessages::set('password', 'The submitted data are invalid.');
+            return $response->withHeader('Location', '/account');
+        } else if ($payload['new-password'] !== $payload['new-password-confirmation']) {
+            FlashMessages::set('password', 'The new password confirmation does not match.');
+            return $response->withHeader('Location', '/account');
+        } else if (!password_verify($payload['current-password'], $user->getAttribute('password'))) {
+            FlashMessages::set('password', 'The current password is invalid.');
             return $response->withHeader('Location', '/account');
         }
 
-        // Change the password if the current password is correct
-        if (password_verify($payload['current-password'], $user->getAttribute('password'))) {
-            $user->setAttribute('password', password_hash($payload['new-password'], PASSWORD_DEFAULT));
-            $user->save();
-        }
+        $user->setAttribute('password', password_hash($payload['new-password'], PASSWORD_DEFAULT));
+        $user->save();
 
+        FlashMessages::set('password-success', 'Your password has been successfully changed.');
         return $response->withHeader('Location', '/account');
     }
 }

@@ -1,0 +1,10 @@
+<form method="post">
+    {{ csrf_token() }}
+    <div class="d-flex gap-2">
+        <div class="flex-grow-1">
+            <input type="text" class="form-control" name="message" id="message" required
+                   placeholder="Your message" aria-label="Your message" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-primary">Send message</button>
+    </div>
+</form>
