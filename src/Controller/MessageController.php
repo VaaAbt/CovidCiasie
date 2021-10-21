@@ -20,7 +20,7 @@ class MessageController extends AbstractController
         return $this->render($response, 'messages/index.html.twig', $data);
     }
 
-    public function getUserMessageView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function getUserMessagesView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $id = Auth::getUser()->getAttribute('id');
         $data['users'] = User::getTalkedToUser();
@@ -41,7 +41,7 @@ class MessageController extends AbstractController
         return $response->withHeader('Location', '/messages/user/' . $args['id'])->withStatus(302);
     }
 
-    public function getGroupMessageView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    public function getGroupMessagesView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $id = Auth::getUser()->getAttribute('id');
         $data['users'] = User::getTalkedToUser();
