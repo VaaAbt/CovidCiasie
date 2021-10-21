@@ -8,6 +8,11 @@
                 {{ retrieve_flash('credentials') }}
             </div>
         {% endif %}
+        {% if has_flash('auth') %}
+            <div class="alert alert-danger">
+                {{ retrieve_flash('auth') }}
+            </div>
+        {% endif %}
 
         <form method="post">
             {{ csrf_token() }}
