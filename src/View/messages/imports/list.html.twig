@@ -1,10 +1,14 @@
 <div class="list-group">
     {% for user in users %}
         <a href="/messages/user/{{ user.id }}"
-           class="list-group-item list-group-item-action">{{ user.firstname }} {{ user.lastname }}</a>
+           class="list-group-item list-group-item-action{{ user_id == user.id ? ' active' : '' }}">
+            {{ user.firstname }} {{ user.lastname }}
+        </a>
     {% endfor %}
     {% for group in groups %}
         <a href="/messages/group/{{ group.group_id }}"
-           class="list-group-item list-group-item-action">{{ group.group().first().name }}</a>
+           class="list-group-item list-group-item-action{{ group_id == group.group_id ? ' active' : '' }}">
+            {{ group.group().first().name }}
+        </a>
     {% endfor %}
 </div>

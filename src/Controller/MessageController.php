@@ -29,6 +29,7 @@ class MessageController extends AbstractController
         $data['groups'] = GroupUser::getGroupsOfUser($id);
 
         $data['messages'] = Message::getDiscussionMessages($args['id']);
+        $data['user_id'] = $args['id']; // for active status
 
         return $this->render($response, 'messages/direct.html.twig', $data);
     }
@@ -58,6 +59,7 @@ class MessageController extends AbstractController
         $data['groups'] = GroupUser::getGroupsOfUser($id);
 
         $data['group'] = $group;
+        $data['group_id'] = $args['id']; // for active status
         $data['messages'] = $group->messages()->get();
         $data['members'] = $group->users()->get();
 
@@ -67,7 +69,7 @@ class MessageController extends AbstractController
     public function createGroupMessage(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $payload = $request->getParsedBody();
-        
+
         $message = [
             'group_id' => $args['id'],
             'message' => $payload['message']
