@@ -9,8 +9,14 @@
             </aside>
 
             <section class="col-10 px-4">
-                <h3 class="mb-3">{{ chatName }}</h3>
-                <div class="border p-4">
+                <h3 class="mb-3">{{ group.getAttribute('name') }}</h3>
+                <span>Members:</span>
+                <span class="text-muted">
+                    {% for member in members %}
+                        {{ member.getAttribute('firstname') }} {{ member.getAttribute('lastname') }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                </span>
+                <div class="border p-4 mt-3">
                     {% include 'messages/imports/messages.html.twig' %}
                     {% include 'messages/imports/form.html.twig' %}
                 </div>
