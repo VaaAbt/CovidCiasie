@@ -1,6 +1,7 @@
 <?php
 
 use App\Utils\Auth;
+use App\Utils\FlashMessages;
 use DI\Container;
 use Slim\App;
 use Slim\Csrf\Guard;
@@ -39,6 +40,14 @@ return static function (App $app) {
             <input type="hidden" name="$csrfValueKey" value="$csrfValue">
         HTML;
     }, ['is_safe' => ['html']]));
+
+    // Flash messages
+    $environment->addFunction(new TwigFunction('has_flash', function (string $key) {
+        return FlashMessages::has($key);
+    }));
+    $environment->addFunction(new TwigFunction('retrieve_flash', function (string $key) {
+        return FlashMessages::retrieve($key);
+    }));
 
     // Add twig to container
     $container->set('twig', $twig);
