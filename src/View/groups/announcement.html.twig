@@ -1,0 +1,21 @@
+{% extends 'template/base.html.twig' %}
+{% block content %}
+    <div class="container my-5" style="max-width: 600px;">
+        <h1 class="mb-4">Post an announcement</h1>
+
+        {% if has_flash('group') %}
+            <div class="alert alert-danger">
+                {{ retrieve_flash('group') }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {{ csrf_token() }}
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+{% endblock %}
