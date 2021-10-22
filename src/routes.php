@@ -31,8 +31,6 @@ $app->group('/messages', function (RouteCollectorProxy $group) {
 
     $group->get('/group/{id}', [MessageController::class, 'getGroupMessagesView']);
     $group->post('/group/{id}', [MessageController::class, 'createGroupMessage']);
-
-    $group->post('/search-user', [MessageController::class, 'searchUser']);
 })->add(new AuthMiddleware());
 
 // login
@@ -61,6 +59,10 @@ $app->group('/account', function (RouteCollectorProxy $group) {
 $app->group('/groups', function (RouteCollectorProxy $group) {
     $group->get('/new', [GroupController::class, 'newView']);
     $group->post('/new', [GroupController::class, 'new']);
+
+    $group->get('/{id}/announcement', [GroupController::class, 'announcementView']);
+    $group->post('/{id}/announcement', [GroupController::class, 'announcement']);
+
 })->add(new AuthMiddleware());
 
 // contacts

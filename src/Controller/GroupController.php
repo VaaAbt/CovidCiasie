@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\Announcement;
 use App\Model\Group;
 use App\Utils\Auth;
 use App\Utils\FlashMessages;
@@ -36,6 +37,38 @@ class GroupController extends AbstractController
         $group->save();
 
         $group->users()->save(Auth::getUser());
+        
+
+        return $response->withHeader('Location', "/messages/group/{$group->getAttribute('id')}");
+    }
+
+    public function announcementView(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        return $this->render($response, 'groups/announcement.html.twig');
+    }
+
+    public function announcement(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $group = Group::query()->where('id', '=', $args['id'])->first();
+
+        $payload = $request->getParsedBody();
+
+        $dataValidator = [
+            'message' => Validator::isNotEmpty($payload['message'])
+        ];
+
+        $result = (bool)array_product($dataValidator);
+
+        if (!$result) {
+            FlashMessages::set('group', 'The submitted data are invalid.');
+            return $response->withHeader('Location', "/groups/{$group->getAttribute('id')}/announcement");
+        }
+
+        $announcement = [
+            'group_id' => $group->getAttribute('id'),
+            'message' => $payload['message']
+        ];
+        Announcement::create($announcement);
 
         return $response->withHeader('Location', "/messages/group/{$group->getAttribute('id')}");
     }
