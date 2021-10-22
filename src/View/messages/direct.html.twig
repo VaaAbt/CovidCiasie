@@ -10,6 +10,9 @@
 
             <section class="border col-10 p-4">
                 {% include 'messages/imports/messages.html.twig' %}
+                {% if contact == false %}
+                    {% include 'contacts/imports/warning.html.twig' %}
+                {% endif %}
                 {% include 'messages/imports/form.html.twig' %}
             </section>
         </main>

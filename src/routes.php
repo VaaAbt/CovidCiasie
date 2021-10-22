@@ -3,10 +3,13 @@
 
 use App\Controller\AccountController;
 use App\Controller\AuthController;
+use App\Controller\ContactController;
 use App\Controller\GroupController;
 use App\Controller\HomeController;
 use App\Controller\MapController;
 use App\Controller\MessageController;
+use App\Controller\InvitationController;
+use App\Controller\SearchController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use Slim\App;
@@ -58,6 +61,24 @@ $app->group('/account', function (RouteCollectorProxy $group) {
 $app->group('/groups', function (RouteCollectorProxy $group) {
     $group->get('/new', [GroupController::class, 'newView']);
     $group->post('/new', [GroupController::class, 'new']);
+})->add(new AuthMiddleware());
+
+// contacts
+$app->group('/contacts', function (RouteCollectorProxy $group) {
+    $group->get('', [ContactController::class, 'getView']);
+    $group->get('/remove/{id}', [ContactController::class, 'remove']);
+})->add(new AuthMiddleware());
+
+// invitations
+$app->group('/invitation', function (RouteCollectorProxy $group) {
+    $group->get('/accept/{id}', [InvitationController::class, 'accept']);
+    $group->get('/decline/{id}', [InvitationController::class, 'decline']);
+    $group->get('/send/{id}', [InvitationController::class, 'send']);
+})->add(new AuthMiddleware());
+
+// search
+$app->group('/search', function (RouteCollectorProxy $group) {
+    $group->post('', [SearchController::class, 'search']);
 })->add(new AuthMiddleware());
 
 //map

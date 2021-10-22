@@ -1,0 +1,17 @@
+<h2>Invitations</h2>
+<div class="list-group">
+	{% if invitations | length == 0 %}
+		<p class="opacity-50">No invitations found</p>
+	{% else %}
+	{% for invitation in invitations %}
+		<div class="list-group-item list-group-item-action d-flex justify-content-between">
+			{{invitation.sender().first().firstname}}
+			{{invitation.sender().first().lastname}}
+			<div>
+				<a href="/invitation/accept/{{ invitation.sender().first().id }}" class="btn btn-success btn-sm">Accept friend invitation</a>
+				<a href="/invitation/decline/{{ invitation.sender().first().id }}" class="btn btn-warning btn-sm">Decline friend invitation</a>
+			</div>
+		</div>
+	{% endfor %}
+	{% endif %}
+</div>

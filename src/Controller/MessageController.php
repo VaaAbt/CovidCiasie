@@ -6,6 +6,7 @@ use App\Model\Group;
 use App\Model\GroupUser;
 use App\Model\Message;
 use App\Model\User;
+use App\Model\Contact;
 use App\Utils\Auth;
 use App\Utils\FlashMessages;
 use Psr\Http\Message\ResponseInterface;
@@ -27,7 +28,7 @@ class MessageController extends AbstractController
         $id = Auth::getUser()->getAttribute('id');
         $data['users'] = User::getTalkedToUser();
         $data['groups'] = GroupUser::getGroupsOfUser($id);
-
+        $data['contact'] = Contact::inContact($args['id'], $id);
         $data['messages'] = Message::getDiscussionMessages($args['id']);
         $data['user_id'] = $args['id']; // for active status
 
