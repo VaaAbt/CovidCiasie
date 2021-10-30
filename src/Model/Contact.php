@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Utils\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contact extends Model
 {
@@ -21,6 +22,16 @@ class Contact extends Model
      */
     public $timestamps = false;
 
+    public function user1(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user1_id');
+    }
+
+    public function user2(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user2_id');
+    }
+
     public static function create($data)
     {
         $contact = new Contact();
@@ -37,24 +48,24 @@ class Contact extends Model
         $userId = Auth::getUser()->getAttribute('id');
 
         return Contact::query()
-        ->where('user1_id', '=', $userId)
-        ->orWhere('user2_id', '=', $userId)
-        ->get();
+            ->where('user1_id', '=', $userId)
+            ->orWhere('user2_id', '=', $userId)
+            ->get();
     }
 
     public static function remove($friend_id, $user_id)
     {
         return Contact::query()
-        ->where([['user1_id', '=', $friend_id],['user2_id', '=', $user_id]])
-        ->orWhere([['user1_id', '=', $user_id],['user2_id', '=', $friend_id]])
-        ->delete();
+            ->where([['user1_id', '=', $friend_id], ['user2_id', '=', $user_id]])
+            ->orWhere([['user1_id', '=', $user_id], ['user2_id', '=', $friend_id]])
+            ->delete();
     }
 
     public static function inContact($person_id, $user_id)
     {
         return Contact::query()
-        ->where([['user1_id', '=', $person_id],['user2_id', '=', $user_id]])
-        ->orWhere([['user1_id', '=', $user_id],['user2_id', '=', $person_id]])
-        ->first();
+            ->where([['user1_id', '=', $person_id], ['user2_id', '=', $user_id]])
+            ->orWhere([['user1_id', '=', $user_id], ['user2_id', '=', $person_id]])
+            ->first();
     }
 }

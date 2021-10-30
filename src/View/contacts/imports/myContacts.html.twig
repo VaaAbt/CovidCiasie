@@ -1,20 +1,20 @@
 <div class="list-group">
-{% if contacts | length == 0 and  groups | length == 0 %}
-    <p class="opacity-50">No contacts</p>
-{% else %}
-    
-    {% for contact in contacts %}
-        <div class="list-group-item list-group-item-action d-flex justify-content-between">
-        {% set friend = contact.user1_id == auth.user.id ? contact.user2_id : contact.user1_id %}
-            {{ friend }}
-            <a href="/contacts/remove/{{ friend }}" class="btn btn-danger btn-sm">unfriend</a>
-        </div>
-    {% endfor %}
-    {% for group in groups %}
-        <div class="list-group-item list-group-item-action d-flex justify-content-between">
-            {{ group.group().first().name }}
-            <a href="" class="btn btn-danger btn-sm">leave group</a>
-        </div>
-    {% endfor %}
-{% endif %}
+    {% if contacts | length == 0 and  groups | length == 0 %}
+        <p class="opacity-50">No contacts</p>
+    {% else %}
+
+        {% for contact in contacts %}
+            <div class="list-group-item list-group-item-action d-flex justify-content-between">
+                {% set friend = contact.user1_id == auth.user.id ? contact.user2 : contact.user1 %}
+                {{ friend.firstname }} {{ friend.lastname }}
+                <a href="/contacts/remove/{{ friend.id }}" class="btn btn-danger btn-sm">Remove friend</a>
+            </div>
+        {% endfor %}
+        {% for group in groups %}
+            <div class="list-group-item list-group-item-action d-flex justify-content-between">
+                {{ group.group().first().name }}
+                <a href="" class="btn btn-danger btn-sm">Leave group</a>
+            </div>
+        {% endfor %}
+    {% endif %}
 </div>
