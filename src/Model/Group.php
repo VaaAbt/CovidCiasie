@@ -50,6 +50,16 @@ class Group extends Model
     }
 
     /**
+     * Get the related announcements to the group
+     *
+     * @return HasMany
+     */
+    public function annoucements(): HasMany
+    {
+        return $this->hasMany(Announcement::class, 'group_id');
+    }
+
+    /**
      * Get the related files to the group
      *
      * @return HasMany

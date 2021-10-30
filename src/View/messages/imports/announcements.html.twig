@@ -1,0 +1,18 @@
+<div class="d-flex justify-content-end align-items-center mb-3">
+    <a href="/groups/{{ group.getAttribute('id') }}/announcement" class="btn btn-outline-primary">Post an
+        announcement</a>
+</div>
+
+<ul class="list-group">
+    {% if announcements | length > 0 %}
+        {% for announcement in announcements %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">{{ announcement.message }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-muted">No announcements found.</p>
+    {% endif %}
+</ul>

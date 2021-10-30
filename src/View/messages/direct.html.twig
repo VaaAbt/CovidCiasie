@@ -8,12 +8,18 @@
                 {% include 'messages/imports/list.html.twig' %}
             </aside>
 
-            <section class="border col-10 p-4">
-                {% include 'messages/imports/messages.html.twig' %}
+            <section class="col-10 px-4 pb-4">
                 {% if contact == false %}
                     {% include 'contacts/imports/warning.html.twig' %}
                 {% endif %}
-                {% include 'messages/imports/form.html.twig' %}
+
+                <div class="border p-4">
+                    {% include 'messages/imports/messages.html.twig' %}
+
+                    {% if contact == true %}
+                        {% include 'messages/imports/form.html.twig' %}
+                    {% endif %}
+                </div>
             </section>
         </main>
     </div>

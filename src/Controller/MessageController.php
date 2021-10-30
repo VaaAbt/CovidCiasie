@@ -67,6 +67,7 @@ class MessageController extends AbstractController
         $data['group_id'] = $args['id']; // for active status
         $data['messages'] = $group->messages()->get();
         $data['members'] = $group->users()->get();
+        $data['announcements'] = $group->annoucements()->get();
         $data['files'] = $group->files()->get();
 
         return $this->render($response, 'messages/group.html.twig', $data);
