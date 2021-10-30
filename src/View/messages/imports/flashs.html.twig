@@ -1,0 +1,11 @@
+{% if has_flash('messages') %}
+    <div class="alert alert-danger my-3">
+        {{ retrieve_flash('messages') }}
+    </div>
+{% endif %}
+
+{% if has_flash('messages-success') %}
+    <div class="alert alert-success my-3">
+        {{ retrieve_flash('messages-success') }}
+    </div>
+{% endif %}

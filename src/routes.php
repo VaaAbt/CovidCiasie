@@ -65,6 +65,8 @@ $app->group('/groups', function (RouteCollectorProxy $group) {
 
     $group->get('/{id}/file', [GroupController::class, 'fileView']);
     $group->post('/{id}/file', [GroupController::class, 'file']);
+
+    $group->post('/{id}/add-member', [GroupController::class, 'addMember']);
 })->add(new AuthMiddleware());
 
 // contacts

@@ -65,7 +65,7 @@ class User extends Model
         $users = User::where('contamined', 1)->get();
 
         $data = array();
-        foreach($users as $user){
+        foreach ($users as $user) {
             $location = Location::getLocationId($user->id);
             $data[] = ['longitude' => $location->longitude, 'latitude' => $location->latitude];
         }
@@ -81,6 +81,49 @@ class User extends Model
     public function relatedTo(): HasMany
     {
         return $this->hasMany(Message::class, 'receiver_id');
+    }
+
+    /**
+     * Get all the contacts of the user
+     *
+     * @return Collection
+     */
+    public function getUsersInContacts(): Collection
+    {
+        $id = $this->getAttribute('id');
+
+        $contacts1 = Contact::query()
+            ->where('user1_id', '=', $id)
+            ->get();
+
+        $contacts1 = $contacts1->map(function (Contact $contact) {
+            return $contact->user2()->first();
+        });
+
+        $contacts2 = Contact::query()
+            ->where('user2_id', '=', $id)
+            ->get();
+
+        $contacts2 = $contacts2->map(function (Contact $contact) {
+            return $contact->user1()->first();
+        });
+
+        return $contacts1->concat($contacts2);
+    }
+
+    /**
+     * Get the users contacts which are not members of the group
+     *
+     * @param Group $group
+     * @return Collection
+     */
+    public function getUsersContactsNotInGroup(Group $group): Collection
+    {
+        $contacts = $this->getUsersInContacts();
+
+        return $contacts->filter(function (User $user) use ($group) {
+            return !$group->hasMember($user);
+        });
     }
 
     public static function getUserFirstname($id)
@@ -114,6 +157,6 @@ class User extends Model
      */
     public static function getUsersWith($search): Collection
     {
-        return User::query()->where('firstname', 'LIKE', '%'.$search.'%')->get(); 
+        return User::query()->where('firstname', 'LIKE', '%' . $search . '%')->get();
     }
 }

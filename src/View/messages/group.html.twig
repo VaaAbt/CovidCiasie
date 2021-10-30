@@ -3,6 +3,8 @@
     {% include 'messages/imports/header.html.twig' %}
 
     <div class="container">
+        {% include 'messages/imports/flashs.html.twig' %}
+
         <main class="row align-items-start my-4">
             <aside class="col-2">
                 {% include 'messages/imports/list.html.twig' %}
@@ -11,27 +13,29 @@
             <section class="col-10 px-4">
                 <h3 class="mb-3">{{ group.getAttribute('name') }}</h3>
 
-                <span>Members:</span>
-                <span class="text-muted">
-                    {% for member in members %}
-                        {{ member.getAttribute('firstname') }} {{ member.getAttribute('lastname') }}{% if not loop.last %},{% endif %}
-                    {% endfor %}
-                </span>
-
                 <ul class="nav nav-tabs my-4" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#messages"
-                                type="button" role="tab" aria-selected="true">Messages
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#messages" type="button"
+                                role="tab" aria-selected="true">
+                            Messages
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#annoucements"
-                                type="button" role="tab" aria-selected="false">Announcements
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#annoucements" type="button"
+                                role="tab" aria-selected="false">
+                            Announcements
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files"
-                                type="button" role="tab" aria-selected="false">Files
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#files" type="button" role="tab"
+                                aria-selected="false">
+                            Files
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#members" type="button" role="tab"
+                                aria-selected="false">
+                            Members
                         </button>
                     </li>
                 </ul>
@@ -50,6 +54,14 @@
 
                     <div class="tab-pane fade" id="files" role="tabpanel">
                         {% include 'messages/imports/files.html.twig' %}
+                    </div>
+
+                    <div class="tab-pane fade" id="files" role="tabpanel">
+                        {% include 'messages/imports/files.html.twig' %}
+                    </div>
+
+                    <div class="tab-pane fade" id="members" role="tabpanel">
+                        {% include 'messages/imports/members.html.twig' %}
                     </div>
                 </div>
 

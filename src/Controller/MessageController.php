@@ -61,7 +61,8 @@ class MessageController extends AbstractController
             return $response->withHeader('Location', '/messages')->withStatus(404);
         }
 
-        $id = Auth::getUser()->getAttribute('id');
+        $user = Auth::getUser();
+        $id = $user->getAttribute('id');
         $data['users'] = User::getTalkedToUser();
         $data['groups'] = GroupUser::getGroupsOfUser($id);
         $data['group'] = $group;
@@ -70,6 +71,7 @@ class MessageController extends AbstractController
         $data['members'] = $group->users()->get();
         $data['announcements'] = $group->annoucements()->get();
         $data['files'] = $group->files()->get();
+        $data['contactsNotInGroup'] = $user->getUsersContactsNotInGroup($group);
 
         return $this->render($response, 'messages/group.html.twig', $data);
     }

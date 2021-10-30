@@ -69,6 +69,20 @@ class Group extends Model
         return $this->hasMany(File::class, 'group_id');
     }
 
+    /**
+     * Check if the user is a member of the group
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function hasMember(User $user): bool
+    {
+        return GroupUser::query()
+            ->where('group_id', '=', $this->getAttribute('id'))
+            ->where('user_id', '=', $user->getAttribute('id'))
+            ->exists();
+    }
+
     public static function getGroupName($id)
     {
         return Group::query()

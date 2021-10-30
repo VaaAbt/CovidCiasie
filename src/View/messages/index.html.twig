@@ -3,11 +3,7 @@
     {% include 'messages/imports/header.html.twig' %}
 
     <div class="container">
-        {% if has_flash('messages') %}
-            <div class="alert alert-danger">
-                {{ retrieve_flash('messages') }}
-            </div>
-        {% endif %}
+        {% include 'messages/imports/flashs.html.twig' %}
 
         <main class="row align-items-start my-4">
             <aside class="col-2">

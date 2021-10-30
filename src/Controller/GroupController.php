@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Model\Announcement;
+use App\Model\Contact;
 use App\Model\File;
 use App\Model\Group;
+use App\Model\GroupUser;
+use App\Model\User;
 use App\Utils\Auth;
 use App\Utils\FlashMessages;
 use App\Utils\Validator;
@@ -120,6 +123,45 @@ class GroupController extends AbstractController
         $file->setAttribute('filename', $uploadedFile->getClientFilename());
         $file->save();
 
+        return $response->withHeader('Location', "/messages/group/{$groupId}");
+    }
+
+    public function addMember(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
+    {
+        $id = Auth::getUser()->getAttribute('id');
+        $targetUserId = $request->getParsedBody()['target'] ?? null;
+        $groupId = $args['id'];
+
+        $targetUser = User::query()->where('id', '=', $targetUserId)->first();
+        if (!$targetUser) {
+            FlashMessages::set('messages', 'User not found.');
+            return $response->withHeader('Location', "/messages/group/{$groupId}")->withStatus(404);
+        }
+
+        if (!Contact::inContact($id, $targetUserId)) {
+            FlashMessages::set('messages', 'This user is not in your contacts.');
+            return $response->withHeader('Location', "/messages/group/{$groupId}")->withStatus(422);
+        }
+
+        /** @var Group $group */
+        $group = Group::query()->where('id', '=', $groupId)->firstOrFail();
+        if (!$group->hasMember(Auth::getUser())) {
+            FlashMessages::set('messages', 'You are not in the group.');
+            return $response->withHeader('Location', "/messages/group/{$groupId}")->withStatus(403);
+        }
+
+        /** @var User $targetUser */
+        if ($group->hasMember($targetUser)) {
+            FlashMessages::set('messages', 'This user is already in this group.');
+            return $response->withHeader('Location', "/messages/group/{$groupId}")->withStatus(422);
+        }
+
+        $groupUser = new GroupUser();
+        $groupUser->setAttribute('group_id', $groupId);
+        $groupUser->setAttribute('user_id', $targetUserId);
+        $groupUser->save();
+
+        FlashMessages::set('messages-success', "{$targetUser->getAttribute('firstname')} {$targetUser->getAttribute('lastname')} was successfully added to the group.");
         return $response->withHeader('Location', "/messages/group/{$groupId}");
     }
 }

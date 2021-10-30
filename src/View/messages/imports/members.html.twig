@@ -1,0 +1,26 @@
+<h4 class="mb-4">Members</h4>
+<ul class="list-group">
+    {% for member in members %}
+        <li class="list-group-item">{{ member.firstname }} {{ member.lastname }}</li>
+    {% endfor %}
+</ul>
+
+<h4 class="mt-5 mb-4">Invite a friend to the group</h4>
+{% if contactsNotInGroup | length > 0 %}
+    <ul class="list-group">
+        {% for contact in contactsNotInGroup %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ contact.firstname }} {{ contact.lastname }}
+                <div>
+                    <form action="/groups/{{ group.id }}/add-member" method="post">
+                        {{ csrf_token() }}
+                        <input type="hidden" value="{{ contact.id }}" name="target">
+                        <button type="submit" class="btn btn-outline-success">Add to the group</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <span class="text-muted">You have no friends to add to this group.</span>
+{% endif %}
