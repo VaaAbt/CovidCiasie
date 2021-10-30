@@ -11,7 +11,12 @@
             <section class="col-10 px-4">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="mb-3">{{ group.getAttribute('name') }}</h3>
-                    <a href="/groups/{{ group.getAttribute('id') }}/announcement" class="btn btn-primary">Post an announcement</a>
+                    <div>
+                        <a href="/groups/{{ group.getAttribute('id') }}/file" class="btn btn-outline-primary">Post
+                            a file</a>
+                        <a href="/groups/{{ group.getAttribute('id') }}/announcement" class="btn btn-outline-primary">Post
+                            an announcement</a>
+                    </div>
                 </div>
                 <span>Members:</span>
                 <span class="text-muted">
@@ -19,6 +24,12 @@
                         {{ member.getAttribute('firstname') }} {{ member.getAttribute('lastname') }}{% if not loop.last %},{% endif %}
                     {% endfor %}
                 </span>
+
+                {% if files | length > 0 %}
+                    {% include 'messages/imports/files.html.twig' %}
+                {% endif %}
+
+                <h4 class="mt-4 mb-3">Messages</h4>
                 <div class="border p-4 mt-3">
                     {% include 'messages/imports/messages.html.twig' %}
                     {% include 'messages/imports/form.html.twig' %}

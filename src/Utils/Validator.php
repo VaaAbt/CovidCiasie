@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Model\User;
+use Slim\Psr7\UploadedFile;
 
 class Validator
 {
@@ -37,5 +38,16 @@ class Validator
     public static function isEmailAlreadyExist($var): bool
     {
         return User::query()->where('email', $var)->exists();
+    }
+
+    /**
+     * Check if the var is a file
+     *
+     * @param $var
+     * @return bool
+     */
+    public static function isFile($var): bool
+    {
+        return $var instanceof UploadedFile;
     }
 }

@@ -3,3 +3,4 @@ vendor
 .vscode
 *.phar
 var
+public/uploads

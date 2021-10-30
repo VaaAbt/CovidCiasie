@@ -6,9 +6,9 @@ use App\Controller\AuthController;
 use App\Controller\ContactController;
 use App\Controller\GroupController;
 use App\Controller\HomeController;
+use App\Controller\InvitationController;
 use App\Controller\MapController;
 use App\Controller\MessageController;
-use App\Controller\InvitationController;
 use App\Controller\SearchController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
@@ -63,6 +63,8 @@ $app->group('/groups', function (RouteCollectorProxy $group) {
     $group->get('/{id}/announcement', [GroupController::class, 'announcementView']);
     $group->post('/{id}/announcement', [GroupController::class, 'announcement']);
 
+    $group->get('/{id}/file', [GroupController::class, 'fileView']);
+    $group->post('/{id}/file', [GroupController::class, 'file']);
 })->add(new AuthMiddleware());
 
 // contacts

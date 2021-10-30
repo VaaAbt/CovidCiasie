@@ -67,9 +67,9 @@ CREATE TABLE IF NOT EXISTS covidciasie.contacts
 
 CREATE TABLE IF NOT EXISTS covidciasie.files
 (
-    id int(11) NOT NULL,
+    id int(11) NOT NULL AUTO_INCREMENT,
     filename varchar(255) NOT NULL,
-    group_id int(11) NOT NUlL,
+    group_id int(11),
     PRIMARY KEY (id),
     CONSTRAINT fk_file_id_group
         FOREIGN KEY (group_id) REFERENCES `groups` (id)

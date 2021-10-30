@@ -1,0 +1,21 @@
+{% extends 'template/base.html.twig' %}
+{% block content %}
+    <div class="container my-5" style="max-width: 600px;">
+        <h1 class="mb-4">Post a file</h1>
+
+        {% if has_flash('file') %}
+            <div class="alert alert-danger">
+                {{ retrieve_flash('file') }}
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {{ csrf_token() }}
+            <div class="mb-3">
+                <label for="file" class="form-label">File</label>
+                <input class="form-control" type="file" id="file" name="file">
+            </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+{% endblock %}

@@ -49,6 +49,16 @@ class Group extends Model
         );
     }
 
+    /**
+     * Get the related files to the group
+     *
+     * @return HasMany
+     */
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class, 'group_id');
+    }
+
     public static function getGroupName($id)
     {
         return Group::query()
@@ -56,6 +66,4 @@ class Group extends Model
             ->first()
             ->getAttribute('name');
     }
-    
-
 }

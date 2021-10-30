@@ -41,7 +41,7 @@ class MessageController extends AbstractController
             FlashMessages::set('messages', 'Connot send the message. This user is not in your contacts.');
             return $response->withHeader('Location', '/messages')->withStatus(403);
         }
-        
+
         $msg = $request->getParsedBody();
         $message = [
             'receiver_id' => $args['id'],
@@ -63,11 +63,11 @@ class MessageController extends AbstractController
         $id = Auth::getUser()->getAttribute('id');
         $data['users'] = User::getTalkedToUser();
         $data['groups'] = GroupUser::getGroupsOfUser($id);
-
         $data['group'] = $group;
         $data['group_id'] = $args['id']; // for active status
         $data['messages'] = $group->messages()->get();
         $data['members'] = $group->users()->get();
+        $data['files'] = $group->files()->get();
 
         return $this->render($response, 'messages/group.html.twig', $data);
     }
