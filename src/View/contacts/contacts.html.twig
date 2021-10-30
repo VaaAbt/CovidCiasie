@@ -2,15 +2,17 @@
 {% block content %}
     {% include 'contacts/imports/header.html.twig' %}
     <div class="container">
+
         <main class="row align-items-start my-4">
-            <aside class="col-3">
+            <aside class="col-5">
                 {% include 'contacts/imports/myContacts.html.twig' %}
             </aside>
 
-            <section class="border col-9 p-4">
+            <section class="border col-7 p-4">
                 {% include 'contacts/imports/search.html.twig' %}
             </section>
         </main>
+
         <section class="border col-12 p-4">
             {% include 'contacts/imports/invitations.html.twig' %}
         </section>

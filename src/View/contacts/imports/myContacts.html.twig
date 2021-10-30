@@ -4,16 +4,13 @@
     {% else %}
 
         {% for contact in contacts %}
-            <div class="list-group-item list-group-item-action d-flex justify-content-between">
-                {% set friend = contact.user1_id == auth.user.id ? contact.user2 : contact.user1 %}
+            {% set friend = contact.user1_id == auth.user.id ? contact.user2 : contact.user1 %}
+            <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                 {{ friend.firstname }} {{ friend.lastname }}
-                <a href="/contacts/remove/{{ friend.id }}" class="btn btn-danger btn-sm">Remove friend</a>
-            </div>
-        {% endfor %}
-        {% for group in groups %}
-            <div class="list-group-item list-group-item-action d-flex justify-content-between">
-                {{ group.group().first().name }}
-                <a href="" class="btn btn-danger btn-sm">Leave group</a>
+                <div>
+                    <a href="/messages/user/{{ friend.id }}" class="btn btn-outline-primary btn-sm">Send message</a>
+                    <a href="/contacts/remove/{{ friend.id }}" class="btn btn-danger btn-sm">Remove friend</a>
+                </div>
             </div>
         {% endfor %}
     {% endif %}
