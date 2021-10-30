@@ -61,11 +61,11 @@ class Contact extends Model
             ->delete();
     }
 
-    public static function inContact($person_id, $user_id)
+    public static function inContact($person_id, $user_id): bool
     {
         return Contact::query()
             ->where([['user1_id', '=', $person_id], ['user2_id', '=', $user_id]])
             ->orWhere([['user1_id', '=', $user_id], ['user2_id', '=', $person_id]])
-            ->first();
+            ->exists();
     }
 }

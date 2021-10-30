@@ -30,6 +30,7 @@ class MessageController extends AbstractController
         $data['groups'] = GroupUser::getGroupsOfUser($id);
         $data['messages'] = Message::getDiscussionMessages($args['id']);
         $data['user_id'] = $args['id']; // for active status
+        $data['contact'] = Contact::inContact($id, $args['id']);
 
         return $this->render($response, 'messages/direct.html.twig', $data);
     }
