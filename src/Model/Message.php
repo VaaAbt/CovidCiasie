@@ -37,6 +37,7 @@ class Message extends Model
         $message->setAttribute('receiver_id', $data['receiver_id']);
         $message->setAttribute('group_id', $data['group_id']);
         $message->setAttribute('message', $data['message']);
+        $message->setAttribute('file_id', $data['file_id']);
         $message->save();
 
         return $message;
@@ -77,5 +78,10 @@ class Message extends Model
     public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'receiver_id');
+    }
+
+    public function file(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'file_id');
     }
 }

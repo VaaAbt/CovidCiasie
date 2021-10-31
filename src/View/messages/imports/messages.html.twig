@@ -1,8 +1,15 @@
 {% for message in messages %}
     <div>
+        {% if message.message == '' %}
+            <p class="{{ message.sender_id == auth.user.id ? 'text-end' : 'text-start' }} 
+                p-3">
+                <a href="/file/download/{{message.file_id}}" class="p-3 bg-secondary rounded text-white text-decoration-none" style="--bs-bg-opacity: .5;">File : <span class="text-decoration-underline">{{ message.file().first().filename }}</span></a>
+            </p>
+        {% else %}
         <p class="{{ message.sender_id == auth.user.id ? 'text-end' : 'text-start' }}">
             <span class="opacity-50">{{ message.sender().first().firstname }} {{ message.sender().first().lastname }}</span>
             {{ message.message }}
         </p>
+        {% endif %}
     </div>
 {% endfor %}

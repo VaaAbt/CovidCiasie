@@ -1,0 +1,23 @@
+<div class="modal fade" id="importModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="importModalLabel">Import a file</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" enctype="multipart/form-data">
+            {{ csrf_token() }}
+            <div class="mb-3">
+                <label for="file" class="form-label">File</label>
+                <input class="form-control" type="file" id="file" name="file">
+            </div>        
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+        <button type="submit" name="action" value="upload" class="btn btn-primary">Import</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

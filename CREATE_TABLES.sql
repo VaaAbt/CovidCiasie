@@ -41,6 +41,8 @@ CREATE TABLE IF NOT EXISTS covidciasie.messages
         FOREIGN KEY (receiver_id) REFERENCES users (id),
     CONSTRAINT fk_groups_id_messages
         FOREIGN KEY (group_id) REFERENCES `groups` (id)
+    CONSTRAINT fk_files_id_messages
+        FOREIGN KEY (file_id) REFERENCES `files` (id)
 );
 
 CREATE TABLE IF NOT EXISTS covidciasie.groups_users
@@ -69,7 +71,10 @@ CREATE TABLE IF NOT EXISTS covidciasie.files
 (
     id int(11) NOT NULL AUTO_INCREMENT,
     filename varchar(255) NOT NULL,
-    group_id int(11),
+    filetype text NOT NULL,
+    filesize int(11) NOT NULL,
+    filecontent mediumblob NOT NULL,
+    group_id int(11) DEFAULT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_file_id_group
         FOREIGN KEY (group_id) REFERENCES `groups` (id)

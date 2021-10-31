@@ -10,6 +10,7 @@ use App\Controller\InvitationController;
 use App\Controller\MapController;
 use App\Controller\MessageController;
 use App\Controller\SearchController;
+use App\Controller\FileController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use Slim\App;
@@ -31,6 +32,11 @@ $app->group('/messages', function (RouteCollectorProxy $group) {
 
     $group->get('/group/{id}', [MessageController::class, 'getGroupMessagesView']);
     $group->post('/group/{id}', [MessageController::class, 'createGroupMessage']);
+})->add(new AuthMiddleware());
+
+// file
+$app->group('/file', function (RouteCollectorProxy $group) {
+    $group->get('/download/{id}', [Filecontroller::class, 'download']);
 })->add(new AuthMiddleware());
 
 // login
