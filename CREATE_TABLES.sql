@@ -27,6 +27,19 @@ CREATE TABLE IF NOT EXISTS covidciasie.`groups`
     PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS covidciasie.files
+(
+    id int(11) NOT NULL AUTO_INCREMENT,
+    filename varchar(255) NOT NULL,
+    filetype text NOT NULL,
+    filesize int(11) NOT NULL,
+    filecontent mediumblob NOT NULL,
+    group_id int(11) DEFAULT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_file_id_group
+        FOREIGN KEY (group_id) REFERENCES `groups` (id)
+);
+
 CREATE TABLE IF NOT EXISTS covidciasie.messages
 (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -34,13 +47,14 @@ CREATE TABLE IF NOT EXISTS covidciasie.messages
     receiver_id int(11),
     group_id int(11),
     message varchar(255) NOT NULL,
+    file_id int(11),
     PRIMARY KEY (id),
     CONSTRAINT fk_users1_id_messages
         FOREIGN KEY (sender_id) REFERENCES users (id),
     CONSTRAINT fk_users2_id_messages
         FOREIGN KEY (receiver_id) REFERENCES users (id),
     CONSTRAINT fk_groups_id_messages
-        FOREIGN KEY (group_id) REFERENCES `groups` (id)
+        FOREIGN KEY (group_id) REFERENCES `groups` (id),
     CONSTRAINT fk_files_id_messages
         FOREIGN KEY (file_id) REFERENCES `files` (id)
 );
@@ -65,19 +79,6 @@ CREATE TABLE IF NOT EXISTS covidciasie.contacts
         FOREIGN KEY (user1_id) REFERENCES users (id),
     CONSTRAINT fk_users2_id_contacts
         FOREIGN KEY (user2_id) REFERENCES users (id)
-);
-
-CREATE TABLE IF NOT EXISTS covidciasie.files
-(
-    id int(11) NOT NULL AUTO_INCREMENT,
-    filename varchar(255) NOT NULL,
-    filetype text NOT NULL,
-    filesize int(11) NOT NULL,
-    filecontent mediumblob NOT NULL,
-    group_id int(11) DEFAULT NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT fk_file_id_group
-        FOREIGN KEY (group_id) REFERENCES `groups` (id)
 );
 
 CREATE TABLE IF NOT EXISTS covidciasie.announcements
