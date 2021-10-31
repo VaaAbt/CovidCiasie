@@ -88,8 +88,8 @@ CREATE TABLE IF NOT EXISTS covidciasie.announcements
 CREATE TABLE IF NOT EXISTS covidciasie.invitations
 (
     sender_id int(11) NOT NULL,
-    receiver_id int(11),
-    status int(11),
+    receiver_id int(11) NOT NULL,
+    PRIMARY KEY (sender_id, receiver_id),
     CONSTRAINT fk_users1_id_invitations
         FOREIGN KEY (sender_id) REFERENCES users (id),
     CONSTRAINT fk_users2_id_invitations
