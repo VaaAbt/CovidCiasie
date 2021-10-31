@@ -70,7 +70,7 @@ $app->group('/groups', function (RouteCollectorProxy $group) {
     $group->post('/{id}/announcement', [GroupController::class, 'announcement']);
 
     $group->get('/{id}/file', [GroupController::class, 'fileView']);
-    $group->post('/{id}/file', [GroupController::class, 'file']);
+    $group->post('/{id}/file', [FileController::class, 'uploadFile']);
 
     $group->post('/{id}/add-member', [GroupController::class, 'addMember']);
 })->add(new AuthMiddleware());
