@@ -7,7 +7,6 @@ use App\Model\Group;
 use App\Model\GroupUser;
 use App\Model\Message;
 use App\Model\User;
-use App\Model\File;
 use App\Utils\Auth;
 use App\Utils\FlashMessages;
 use Psr\Http\Message\ResponseInterface;
@@ -46,29 +45,16 @@ class MessageController extends AbstractController
 
         $msg = $request->getParsedBody();
 
-        if($_POST['action'] == 'upload'){
+        $message = [
+            'receiver_id' => $args['id'],
+            'message' => $msg['message']
+        ];
 
-            $file = [
-                'file_name' => $_FILES['file']['name'],
-                'file_type' => $_FILES['file']['type'],
-                'file_size' => $_FILES['file']['size'],
-                'file_content' => file_get_contents($_FILES['file']['tmp_name'])
-            ];
-
-            $newFile = File::create($file);
-            $message = [
-                'receiver_id' => $args['id'],
-                'message' => $msg['message'],
-                'file_id' => $newFile->id
-            ];
-        }else{
-            $message = [
-                'receiver_id' => $args['id'],
-                'message' => $msg['message']
-            ];
+        try {
+            Message::create($message);
+        } catch (\Exception $e) {
+            dd($e);
         }
-
-        Message::create($message);
         return $response->withHeader('Location', '/messages/user/' . $args['id'])->withStatus(302);
     }
 

@@ -4,13 +4,13 @@
 use App\Controller\AccountController;
 use App\Controller\AuthController;
 use App\Controller\ContactController;
+use App\Controller\FileController;
 use App\Controller\GroupController;
 use App\Controller\HomeController;
 use App\Controller\InvitationController;
 use App\Controller\MapController;
 use App\Controller\MessageController;
 use App\Controller\SearchController;
-use App\Controller\FileController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use Slim\App;
@@ -70,7 +70,7 @@ $app->group('/groups', function (RouteCollectorProxy $group) {
     $group->post('/{id}/announcement', [GroupController::class, 'announcement']);
 
     $group->get('/{id}/file', [GroupController::class, 'fileView']);
-    $group->post('/{id}/file', [FileController::class, 'uploadFile']);
+    $group->post('/{id}/file', [GroupController::class, 'file']);
 
     $group->post('/{id}/add-member', [GroupController::class, 'addMember']);
 })->add(new AuthMiddleware());

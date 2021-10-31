@@ -9,7 +9,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 {{ file.filename }}
                 <a class="badge bg-primary rounded-pill text-white text-decoration-none"
-                   href="/file/download/{{file.id}}">Download</a>
+                   href="/uploads/groups/{{ group.id }}/{{ file.filename }}" download>Download</a>
             </li>
         {% endfor %}
     {% else %}

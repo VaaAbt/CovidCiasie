@@ -37,7 +37,6 @@ class Message extends Model
         $message->setAttribute('receiver_id', $data['receiver_id']);
         $message->setAttribute('group_id', $data['group_id']);
         $message->setAttribute('message', $data['message']);
-        $message->setAttribute('file_id', $data['file_id']);
         $message->save();
 
         return $message;
