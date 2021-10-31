@@ -96,6 +96,7 @@ $app->group('/search', function (RouteCollectorProxy $group) {
 //map
 $app->get('/map', [MapController::class, 'mapView']);
 $app->post('/map', [MapController::class, 'getOtherLocations']);
+$app->post('/location', [MapController::class, 'svgLocation']);
 
 // CORS
 $app->options('/{routes:.+}', function ($request, $response, $args) {

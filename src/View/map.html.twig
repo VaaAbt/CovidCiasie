@@ -1,30 +1,39 @@
-{% block header %}
+{% extends 'template/base.html.twig' %}
+{% block content %}
 
+    <h1 id="title_page" class="mb-4">Map</h1>
     <div id="container_allow">
         <p id="title_allow">Server want to know your location</p>
-        <div id="container_btns">
-            <input id="btn_yes" type="button" value="Yes">
-            <input id="btn_no" type="button" value="No">
-        </div>
+        <button id="btn_accept" type="submit" class="btn btn-primary">Accept</button>
     </div>
-    <h2 id="current_location"></h2>
+    <p id="current_location"></p>
 
 
-    <form id="f_gL" method="post" action="/map"></form>
+    <form id="f_gL" method="post" action="/map">
+        {{ csrf_token() }}
+    </form>
+    <form id="f_sL" method="post" action="/location">
+        {{ csrf_token() }}
+        <input id="longitude" type="number" name="longitude">
+        <input id="latitude" type="number" name="latitude">
+    </form>
 
     <div id="map" class="map"></div>
 
     <style>
+        #title_page{margin: 3vw 0 4vw 5vw}
+        #container_allow{margin-left: 2vw}
+        #title_allow{margin-bottom: 5px;}
+
         #map{
-            height: 80vh;
-            width: 90%;
+            height: 75vh;
+            width: 95vw;
+            margin: auto;
         }
-        #f_gL{
-            display: none;
-        }
-        ul{
-            display: none;
-        }
+        #f_gL{ display: none; }
+        #f_sL{ display: none; }
+        ul{ display: none; }
+        #f_sL input{ display: none; }
     </style>
 
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.8.1/build/ol.js"></script>
@@ -36,9 +45,14 @@
 
 
         if(tab == null){
-            document.getElementById('btn_yes').addEventListener('click', ()=>{
+            simpleMap();
+            document.getElementById('btn_accept').addEventListener('click', ()=>{
                 if(navigator.geolocation){
-                    navigator.geolocation.getCurrentPosition(() =>{
+                    navigator.geolocation.getCurrentPosition((loc) =>{
+                        document.getElementById('longitude').value = loc.coords.longitude;
+                        document.getElementById('latitude').value = loc.coords.latitude;
+                        document.getElementById('f_sL').submit();
+
                         document.getElementById('f_gL').submit();
                     });
                 } else{
@@ -47,12 +61,9 @@
             });
         } else{
             if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(showPosition);
+                //navigator.geolocation.getCurrentPosition(showPosition);
                 navigator.geolocation.getCurrentPosition(showMapsPosition);
                 document.getElementById('container_allow').style.display = 'none';
-                //document.getElementById('container_verif').style.removeProperty('display');
-
-                //displayContaminated(tab);
             } else{
                 document.getElementById('current_location').innerHTML = "Geolocation is not supported by this browser";
             }
@@ -72,6 +83,20 @@
 
 
 
+        function simpleMap(){
+            map = new ol.Map({
+                target: 'map',
+                layers: [
+                    new ol.layer.Tile({
+                        source: new ol.source.OSM()
+                    })
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([0, 0]),
+                    zoom: 1
+                })
+            });
+        }
 
         function initMap(location, tab){
             let OSM = new ol.layer.Tile({
@@ -97,7 +122,7 @@
             let Markers=[];
 
             tab.forEach(loc => {
-                console.log(loc.longitude+"  "+loc.latitude);
+                //console.log(loc.longitude+"  "+loc.latitude);
 
                 let marker = new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.transform([loc.longitude, loc.latitude], 'EPSG:4326',
@@ -147,7 +172,7 @@
                         anchor: [0.5, 64],
                         anchorXUnits: 'fraction',
                         anchorYUnits: 'pixels',
-                        src: '/ping.png',
+                        src: '/ressources/images/ping.png',
                         imgSize: [64, 64]
                     }),
                     text: new ol.style.Text({
